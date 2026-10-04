@@ -123,6 +123,25 @@ ul.plain li{margin:3px 0}
 .two{display:grid;grid-template-columns:1fr;gap:16px}
 @media (min-width:760px){.two{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){.duel{grid-template-columns:1fr}.wrap{padding:14px 12px 48px}}
+
+a{color:var(--buy)}
+.steps{list-style:none;margin:16px 0 0;padding:0;counter-reset:st;display:grid;gap:26px}
+.step{counter-increment:st;position:relative;padding-left:48px}
+.step::before{content:counter(st);position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--bg);font:600 1.05rem/34px var(--font-head);text-align:center}
+.step h3{margin:2px 0 8px;font-size:1.2rem}
+.step p{max-width:70ch}
+.formula{background:var(--surface-2);border-left:4px solid var(--buy);padding:10px 12px;border-radius:6px;font-weight:500;margin:10px 0;overflow-wrap:anywhere}
+.live{border:2px dashed var(--buy);border-radius:8px;padding:10px 12px;margin:12px 0;background:var(--surface);font-size:.95rem}
+.live p{margin:0 0 .45em}
+.live p:last-child{margin-bottom:0}
+.facts{margin:12px 0}
+.facts table{border:1px solid var(--line);border-radius:8px}
+.note{font-size:.88rem;color:var(--muted)}
+.weak{margin-top:26px;padding-top:18px;border-top:1px solid var(--line)}
+.weak ol{margin:8px 0 0;padding-left:1.3em}
+.weak li{margin:7px 0;max-width:72ch}
+.q{margin:6px 0 0;padding-left:1.3em}
+@media (max-width:520px){.step{padding-left:42px}.step::before{width:30px;height:30px;font-size:.95rem;line-height:30px}}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 </style>
 </head>
@@ -131,6 +150,7 @@ ul.plain li{margin:3px 0}
   <header>
     <h1>Comprare casa o affittare?</h1>
     <p class="lead">Metti i tuoi numeri e vedi quanto avresti dopo alcuni anni nei due casi: compri con il mutuo, oppure affitti una casa uguale e investi tutto quello che risparmi. Gli importi sono in euro di oggi, al netto dell'inflazione.</p>
+    <p class="lead">Vuoi capire il ragionamento dietro i numeri? <a href="#teoria">Vai alla spiegazione in 9 passi</a>.</p>
     <div class="presets" role="group" aria-label="Valori di partenza per città">
       <button type="button" data-preset="media" aria-pressed="true">Città media</button>
       <button type="button" data-preset="milano" aria-pressed="false">Milano</button>
@@ -213,6 +233,104 @@ ul.plain li{margin:3px 0}
       <section class="card" aria-labelledby="c6">
         <h2 id="c6">Costi di acquisto e rata</h2>
         <div class="scroll"><table id="costTbl"></table></div>
+      </section>
+
+      <section class="card" id="teoria" aria-labelledby="c9">
+        <h2 id="c9">Come funziona, in 9 passi</h2>
+        <p class="small">È il ragionamento dell'episodio, riscritto con parole mie. I numeri nei riquadri tratteggiati si aggiornano con le tue ipotesi; quelli nei riquadri con il bordo pieno sono dati pubblicati e non cambiano.</p>
+        <ol class="steps">
+
+          <li class="step">
+            <h3>Più case di proprietà non vuol dire più ricchezza</h3>
+            <p>Si parte da un paradosso. L'Italia è tra i grandi paesi europei con più famiglie che vivono in casa propria, la Germania tra quelli con meno. Eppure, se guardi la ricchezza media per adulto, i tedeschi stanno sopra. Se la casa fosse sempre il miglior investimento possibile, dovrebbe succedere il contrario.</p>
+            <div class="facts scroll"><table>
+              <thead><tr><th>Dato</th><th class="num">Italia</th><th class="num">Germania</th></tr></thead>
+              <tbody>
+                <tr><td>Popolazione che vive in casa di proprietà (2024)</td><td class="num">75%</td><td class="num">47%</td></tr>
+                <tr><td>Ricchezza media per adulto (2025)</td><td class="num">279.439 $</td><td class="num">346.613 $</td></tr>
+                <tr><td>Ricchezza mediana per adulto (2025)</td><td class="num">131.001 $</td><td class="num">53.485 $</td></tr>
+              </tbody>
+            </table></div>
+            <p>Il rovescio si vede con la mediana, cioè l'adulto esattamente a metà della classifica: qui l'Italia sta molto sopra. La media è tirata in alto da pochi molto ricchi, la mediana racconta la famiglia tipica. La lettura dell'episodio: la casa non alza il soffitto, alza il pavimento.</p>
+            <p class="note">L'episodio dice "quasi 8 famiglie su 10" per l'Italia; Eurostat dà 75%, cioè 3 su 4. Fonti: Eurostat e UBS Global Wealth Report 2026, vedi la tabella in fondo.</p>
+          </li>
+
+          <li class="step">
+            <h3>Il rendimento di una casa ha due gambe</h3>
+            <p>Una casa rende in due modi. Il primo è l'affitto che non paghi perché ci abiti: è un reddito vero, anche se non arriva sul conto. Il secondo è la variazione del prezzo. Confrontare solo l'indice dei prezzi con un ETF che include i dividendi è come giudicare un lavoro guardando gli scatti di anzianità e dimenticando lo stipendio.</p>
+            <div class="formula">rendimento della casa (r) = (canone risparmiato − costi del proprietario) ÷ prezzo + variazione del prezzo</div>
+            <div class="live" id="tl_2" role="group" aria-label="Con i tuoi numeri"></div>
+            <p>Uno studio su 16 paesi dal 1870 al 2015 trova, per case e azioni, un rendimento reale medio di circa 7% l'anno, con le case molto meno altalenanti. L'episodio ne ricava che la sola variazione dei prezzi pesa poco (circa 1,5 punti reali l'anno) e che il resto è affitto. Questa scomposizione non sono riuscito a verificarla.</p>
+          </li>
+
+          <li class="step">
+            <h3>La leva moltiplica la distanza tra casa e mutuo</h3>
+            <p>Con il mutuo non investi solo i tuoi soldi. Il ragionamento ingenuo toglie il tasso del mutuo dal rendimento della casa e si ferma lì: casa al 6%, mutuo al 4%, guadagno del 2%. Ma quel 2% si guadagna su tutta la casa, mentre i soldi messi da te sono solo una parte. La formula giusta rapporta il risultato al capitale che hai versato tu.</p>
+            <div class="formula">rendimento sul capitale proprio = r + (D ÷ E) × (r − i)</div>
+            <p class="note">r è il rendimento della casa, i il tasso del mutuo, D il debito, E il capitale proprio (l'anticipo).</p>
+            <p>Esempio dell'episodio: casa al 6%, mutuo al 4%, anticipo del 20%. Il debito è 4 volte il capitale proprio, quindi 6% + 4 × (6% − 4%) = 14%, non 2%. Il calcolo torna.</p>
+            <div class="live" id="tl_3" role="group" aria-label="Con i tuoi numeri"></div>
+            <p>Attenzione a cosa è quel numero: un rendimento di un solo anno sul capitale proprio, non un rendimento annuo composto come quello di un ETF. E si consuma: ogni anno rimborsi capitale, il debito scende e la leva con lui. Per questo il conto vero va fatto su tutti gli anni di permanenza, come nel grafico in alto.</p>
+          </li>
+
+          <li class="step">
+            <h3>Il numero che decide tutto è la distanza tra casa e mutuo</h3>
+            <p>Nella formula conta soprattutto r − i. Se la distanza è piccola, anche una leva forte produce poco. Se è negativa, la leva ti fa perdere di più di quanto perderesti con una casa pagata in contanti. Nell'episodio: affitto figurato netto 4,21%, costo del mutuo 3,81%. La distanza è di soli 0,4 punti; con leva 4 il primo anno rende circa 5,8%, prima dei costi d'acquisto.</p>
+            <div class="live" id="tl_4" role="group" aria-label="Con i tuoi numeri"></div>
+            <p class="note">Il 3,81% corrisponde al TAEG di marzo 2026; l'ultimo che ho letto, di giugno, è 3,95%, e la BCE ha rialzato i tassi a giugno e a settembre. Il 4,21% viene da dati OMI del 2022 che non ho riverificato.</p>
+          </li>
+
+          <li class="step">
+            <h3>Il vento che avevano i nostri genitori</h3>
+            <p>L'episodio spiega perché per chi ha comprato negli anni Settanta e Ottanta la casa è stata spesso un grande affare. L'inflazione correva più del tasso del mutuo, quindi il tasso reale era negativo. Gli stipendi seguivano i prezzi grazie alla scala mobile. Il debito, fissato in lire, pesava ogni anno meno. Poi, dal 1992 al 2021, i tassi sono scesi e fino al 2007 i prezzi sono saliti. La stessa formula, con il segno girato.</p>
+            <div class="live" id="tl_5" role="group" aria-label="Con i tuoi numeri"></div>
+            <p>Non vale per tutti: dipende da quando e dove si è comprato. E il meccanismo funziona solo se il tuo reddito cresce con l'inflazione; se non cresce, una rata ferma pesa sempre uguale.</p>
+            <p class="note">I numeri storici dell'episodio (inflazione oltre il 20% in alcuni anni, tassi sui mutui dal 12% a poco più dell'1%) non li ho riverificati.</p>
+          </li>
+
+          <li class="step">
+            <h3>Una casa non è la media delle case</h3>
+            <p>Il 7% storico è la media di milioni di immobili in 16 paesi. Tu non compri il mercato: compri una casa, in una via, e spesso è la fetta più grande del tuo patrimonio. Con un ETF compri la media di migliaia di aziende; con una casa fai una scommessa su un indirizzo. Per questo un rendimento atteso non è una promessa.</p>
+            <div class="live" id="tl_6" role="group" aria-label="Con i tuoi numeri"></div>
+            <p>Ci sono poi due voci che nessun indice conta: la manutenzione straordinaria e i costi di compravendita (notaio, agenzia, imposte).</p>
+          </li>
+
+          <li class="step">
+            <h3>L'affitto risparmiato non si reinveste da solo</h3>
+            <p>Un ETF a distribuzione ti paga dividendi che puoi reinvestire, e l'interesse composto lavora per te. L'affitto che non paghi invece lo ricevi sotto forma di servizio: ci abiti. Non compra una stanza in più che a sua volta rende. Per questo la casa arricchisce meno di quanto suggerisca il suo rendimento storico.</p>
+            <p>Il modello lo tratta così: ogni mese confronta quanto esce dalle tasche nei due casi, cioè rata più costi del proprietario contro canone. Chi spende meno investe la differenza in ETF.</p>
+            <div class="live" id="tl_7" role="group" aria-label="Con i tuoi numeri"></div>
+          </li>
+
+          <li class="step">
+            <h3>Lo Stato aiuta, ma entrare e uscire costa</h3>
+            <p>Sulla prima casa il fisco è dalla tua parte: niente IMU, nessuna imposta sull'affitto che risparmi, il 19% degli interessi in detrazione fino a 4.000 € l'anno, registro agevolato. Dall'altra parte notaio, agenzia, imposte e spese del mutuo si pagano subito e non tornano indietro. Più resti, più anni hai per ammortizzarli.</p>
+            <div class="live" id="tl_8" role="group" aria-label="Con i tuoi numeri"></div>
+            <p>L'episodio dice che oltre i 10 anni comprare tende a battere affittare. Non esiste un numero magico: dipende da prezzo, canone, tasso e costi.</p>
+          </li>
+
+          <li class="step">
+            <h3>Tre domande prima di comprare</h3>
+            <ol class="q">
+              <li>La compri per viverci o perché ti aspetti che salga di prezzo?</li>
+              <li>Quanto pensi di restarci?</li>
+              <li>Quanto del tuo patrimonio e del tuo reddito dipenderà da quell'indirizzo?</li>
+            </ol>
+            <div class="live" id="tl_9" role="group" aria-label="Con i tuoi numeri"></div>
+          </li>
+        </ol>
+
+        <div class="weak">
+          <h3>Dove la tesi regge meno</h3>
+          <ol>
+            <li>Il confronto presume un inquilino disciplinato che investe davvero ogni mese la differenza. Nella vita molti non lo fanno, e il mutuo funziona come risparmio forzato. È un vantaggio reale della casa che qui non è quantificato.</li>
+            <li>Media bassa e mediana alta non dimostrano che sia la casa a fare la differenza: pesano anche pensioni, eredità e il modo in cui si misura la ricchezza.</li>
+            <li>Il 7% dello studio è storico, ricostruito da dati su prezzi e canoni (non da compravendite reali), calcolato senza leva e senza costi di acquisto. Non è il rendimento che otterrai tu.</li>
+            <li>La formula della leva è una fotografia di un anno, non il risultato di un percorso: per questo qui è affiancata da una simulazione completa.</li>
+            <li>Il verdetto dipende da ipotesi molto incerte: rivalutazione, tasso del mutuo, rendimento dell'ETF. La mappa e i mille futuri servono a vedere quanto.</li>
+            <li>Alcuni numeri dell'episodio sono arrotondati o datati: per esempio "quasi 8 famiglie su 10" contro il 75% di Eurostat, e il TAEG di marzo presentato come il più recente.</li>
+          </ol>
+        </div>
       </section>
 
       <section class="card" aria-labelledby="c7">
@@ -567,6 +685,7 @@ function update(){
   renderMC(lastRes);
   renderLeverage(lastRes);
   renderCosts(lastRes);
+  renderTheory(lastRes);
   var y = p.price>0 ? p.rent0*12/p.price : NaN;
   var d = document.getElementById('f_rent0_d');
   if(d) d.textContent = 'Canone annuo = '+pct(y,2)+' del prezzo.';
@@ -843,6 +962,70 @@ function renderCosts(r){
   document.getElementById('costTbl').innerHTML = t;
 }
 
+function renderTheory(r){
+  var p=r.p, u=r.main.up, H=r.H;
+  var yG = p.rent0*12/p.price, yN = yG - p.maint;
+  var gNom = (1+p.houseRealG)*(1+p.infl)-1, rH = yN + gNom;
+  var priceReal = r.main.house[H-1], dPrice = priceReal - p.price;
+  var saved = 0; for(var y=0;y<H;y++) saved += p.rent0*12*Math.pow(1+p.rentRealG,y);
+  var hasDebt = u.D>0 && p.dp<1;
+  var de = hasDebt ? (1-p.dp)/p.dp : 0;
+  var eq1 = rH + de*(rH-p.tan);
+  var withCosts = (rH*p.price - p.tan*u.D)/(u.antic+u.total);
+  var rLow = p.tan-0.02, eqLow = rLow + de*(rLow-p.tan);
+  var eqUp = rH + de*(rH-(p.tan+0.01));
+  var set = function(id,h){ var el=document.getElementById(id); if(el) el.innerHTML=h; };
+
+  set('tl_2',
+    '<p><strong>Nel tuo caso:</strong> il canone che non paghi è '+eur(p.rent0*12)+' l\'anno, cioè '+pct(yG,2)+' del prezzo. Tolti i costi del proprietario ('+pct(p.maint,1)+') restano '+pct(yN,2)+'. Con la rivalutazione nominale ('+pct(gNom,2)+') il rendimento della casa è '+pct(rH,2)+' l\'anno.</p>'+
+    '<p>In '+H+' '+(H===1?'anno':'anni')+' il prezzo, in euro di oggi, passa da '+eur(p.price)+' a '+eur(priceReal)+' ('+eurS(dPrice)+'), mentre il canone che non paghi vale in tutto circa '+eur(saved)+'.</p>');
+
+  if(!hasDebt){
+    set('tl_3','<p><strong>Nel tuo caso</strong> non c\'è mutuo: nessuna leva, e il rendimento sul tuo capitale coincide con quello della casa ('+pct(rH,2)+' l\'anno, prima dei costi d\'acquisto).</p>');
+    set('tl_4','<p><strong>Nel tuo caso</strong> senza mutuo il tasso non conta. Abbassa l\'anticipo sotto il 100% per vedere la distanza tra casa e mutuo.</p>');
+  } else {
+    set('tl_3',
+      '<p><strong>Nel tuo caso:</strong> r = '+pct(rH,2)+', i = '+pct(p.tan,2)+', D ÷ E = '+num(de,2)+'. Il rendimento sul tuo capitale nel primo anno è '+pct(eq1,1)+'.</p>'+
+      '<p>Se nel capitale conti anche i costi d\'acquisto ('+eur(u.total)+'), scende a '+pct(withCosts,1)+'.</p>'+
+      '<p>Se invece la casa rendesse '+pct(rLow,1)+', cioè 2 punti meno del mutuo, il rendimento sul tuo capitale sarebbe '+pct(eqLow,1)+': la leva funziona anche al contrario.</p>');
+    set('tl_4',
+      '<p><strong>Nel tuo caso</strong> la distanza r − i è di '+num((rH-p.tan)*100,2)+' punti ('+pct(rH,2)+' contro '+pct(p.tan,2)+').</p>'+
+      '<p>Con D ÷ E = '+num(de,2)+', ogni punto in più sul tasso del mutuo toglie '+num(de,2)+' punti al rendimento sul tuo capitale. Con il tasso al '+pct(p.tan+0.01,2)+' il primo anno renderebbe '+pct(eqUp,1)+' invece di '+pct(eq1,1)+'.</p>');
+  }
+
+  if(!hasDebt){
+    set('tl_5','<p><strong>Nel tuo caso</strong> non c\'è mutuo, quindi non c\'è un debito che l\'inflazione possa svalutare.</p>');
+  } else {
+    var k = Math.min(H, p.nYears);
+    var rr = (1+p.tan)/(1+p.infl)-1, rr10 = (1+p.tan)/1.10-1;
+    set('tl_5',
+      '<p><strong>Nel tuo caso:</strong> un mutuo al '+pct(p.tan,2)+' con inflazione al '+pct(p.infl,1)+' ha un tasso reale di '+pct(rr,2)+'. La rata di '+eur(r.main.pay)+' al mese, dopo '+k+' '+(k===1?'anno':'anni')+', vale in euro di oggi '+eur(r.main.pay/Math.pow(1+p.infl,k))+'.</p>'+
+      '<p>Con inflazione al 10% e lo stesso tasso, il tasso reale sarebbe '+pct(rr10,1)+' e la rata varrebbe '+eur(r.main.pay/Math.pow(1.10,k))+'. È un\'ipotesi illustrativa, non una previsione.</p>');
+  }
+
+  set('tl_6',
+    '<p><strong>Nel tuo caso:</strong> su 1.000 futuri casuali comprare vince nel '+num(r.mc.probBuy*100,0)+'%. Nel 10% dei futuri peggiori la differenza è '+eurS(r.mc.p10)+' o meno; nel 10% dei migliori '+eurS(r.mc.p90)+' o più. Un ventaglio di '+eur(r.mc.p90-r.mc.p10)+' per una sola casa.</p>');
+
+  var ownM = p.maint*p.price/12, gap = r.main.pay + ownM - p.rent0;
+  set('tl_7',
+    '<p><strong>Nel tuo caso</strong>, nel primo anno chi compra spende ogni mese '+eur(Math.abs(gap))+(gap>=0?' più':' meno')+' di chi affitta: rata '+eur(r.main.pay)+' più costi del proprietario '+eur(ownM)+', contro un canone di '+eur(p.rent0)+'. '+(gap>=0?'Nel modello li investe chi affitta.':'Nel modello li investe chi compra.')+'</p>'+
+    '<p>Il canone sale nel tempo con l\'inflazione e con la crescita reale che hai scelto; la rata resta ferma.</p>');
+
+  var exitCost = p.sellPct*priceReal;
+  var ben = p.detr ? 0.19*Math.min(r.main.firstYearInterest,4000) : 0;
+  set('tl_8',
+    '<p><strong>Nel tuo caso</strong> entrare costa '+eur(u.total)+' ('+pct(u.total/p.price,1)+' del prezzo) e uscire dopo '+H+' '+(H===1?'anno':'anni')+' circa '+eur(exitCost)+' in euro di oggi.</p>'+
+    '<p>Il fisco ti restituisce nel primo anno circa '+eur(ben)+' di detrazione sugli interessi'+(p.detr?', più fino a 190 € sulle spese dell\'agenzia':'')+'. '+(r.stable?'Comprare supera affittare in modo stabile dal '+r.stable+'º anno.':'Nei 40 anni simulati comprare non supera in modo stabile affittare.')+'</p>');
+
+  var q0 = M.diffAt(Object.assign({},p,{houseRealG:0}),H);
+  var qm = M.diffAt(Object.assign({},p,{houseRealG:-0.02}),H);
+  var qp = M.diffAt(Object.assign({},p,{houseRealG:0.02}),H);
+  set('tl_9',
+    '<p><strong>1. Nel tuo caso</strong>, dopo '+H+' '+(H===1?'anno':'anni')+' la differenza tra comprare e affittare è '+eurS(q0)+' se la casa segue solo l\'inflazione, '+eurS(qm)+' se perde 2 punti reali l\'anno e '+eurS(qp)+' se ne guadagna 2. Se compri per viverci conta il primo numero; se compri sperando nel prezzo, stai scommettendo sugli altri due.</p>'+
+    '<p><strong>2.</strong> '+(r.stable?'Con le tue ipotesi comprare supera affittare in modo stabile dal '+r.stable+'º anno: prima di allora i costi d\'ingresso non sono ancora ammortizzati.':'Con le tue ipotesi comprare non supera in modo stabile affittare entro i 40 anni.')+'</p>'+
+    '<p><strong>3.</strong> Anticipo e costi, '+eur(u.cash)+', finirebbero in un solo immobile. Nel 10% dei futuri peggiori la differenza è '+eurS(r.mc.p10)+' o meno.</p>');
+}
+
 /* ===== Fonti ===== */
 var SOURCES = [
   ['TAEG medio nuovi mutui casa','3,95% (giugno 2026); 3,96% a maggio','Banca d\'Italia, "Banche e moneta", riportato da edilizia.com e dellevittorie.it (non letto sul sito di Banca d\'Italia)','giu 2026'],
@@ -870,7 +1053,12 @@ var SOURCES = [
   ['Rendimento reale dell\'ETF nel modello','4,5% l\'anno composto','<span class="tag">stima</span> Prudente rispetto al passato; un ETF azionario può perdere anche il 37% in un anno','ott 2026'],
   ['Costi di notaio, agenzia, istruttoria','Notaio 3.000 €; agenzia 3,66% (3% + IVA 22%); istruttoria e perizia 1.000 €','<span class="tag">stima</span> Intervalli: notaio 1.500–2.500 € per il rogito su 200.000 € e fino a 4.000 € con mutuo; agenzia 2–3%; istruttoria 200–1.000 € (dokicasa.it, businessonline.it, bluerating.com)','ott 2026'],
   ['Manutenzione, assicurazione, rivendita','1,0% del valore l\'anno; 3,0% alla vendita','<span class="tag">stima</span> Un forfait dell\'1% per la manutenzione è usato in guide sulla redditività immobiliare (dokicasa.it)','ott 2026'],
-  ['Oscillazione e correlazione','Casa 7%, ETF 15%, correlazione 0,2','<span class="tag">stima</span> Servono solo alla simulazione dei mille futuri','ott 2026']
+  ['Oscillazione e correlazione','Casa 7%, ETF 15%, correlazione 0,2','<span class="tag">stima</span> Servono solo alla simulazione dei mille futuri. Lo studio storico di Jordà e colleghi trova circa 10% per l\'indice aggregato delle case e 22% per le azioni (1870–2015): una singola casa oscilla più dell\'indice, quindi i miei 7% e 15% sono prudenti verso il basso e puoi alzarli','ott 2026'],
+  ['Popolazione in casa di proprietà (spiegazione, passo 1)','Italia 75%, Germania 47% (2024)','Eurostat (5 febbraio 2026), riportato da dellevittorie.it. L\'episodio dice "quasi 8 famiglie su 10" per l\'Italia','2024'],
+  ['Ricchezza per adulto, Italia e Germania (passo 1)','Media: Italia 279.439 $, Germania 346.613 $. Mediana: Italia 131.001 $, Germania 53.485 $','UBS Global Wealth Report 2026, comunicato del 30 giugno 2026 (ubs.com); coerente con Milano Finanza, Sky TG24 ed Euronews','giu 2026'],
+  ['Rendimento reale di lungo periodo di casa e azioni (passi 2 e 6)','Circa 7% l\'anno per entrambe (1870–2015, 16 paesi); oscillazione annua circa 10% per le case e 22% per le azioni','Jordà, Knoll, Kuvshinov, Schularick, Taylor, "The Rate of Return on Everything" (Federal Reserve di San Francisco 2017, Quarterly Journal of Economics 2019), nella sintesi di CXO Advisory e Marginal Revolution. Rendimenti delle case ricostruiti da dati su prezzi e canoni e calcolati senza leva','1870-2015'],
+  ['TAEG citato nell\'episodio (passo 4)','3,81%','Coincide con il dato di marzo 2026; giugno 2026 è 3,95% (Banca d\'Italia, tramite dellevittorie.it)','mar-giu 2026'],
+  ['Dati dell\'episodio non verificati (spiegazione)','Indice BIS dei prezzi reali italiani (75,7 contro 77,2 del 1995); valore delle abitazioni delle famiglie 5.662 miliardi nel 2024 contro 5.701 nel 2011; Italia −25% reale dopo il 2008; prezzi reali dei paesi avanzati −4% dal massimo; resa lorda 5,04% e netta 4,21% (OMI, dati 2022); tassi sui mutui dal 12% (1992) a poco più dell\'1% (2021); inflazione oltre il 20% e scala mobile negli anni Settanta e Ottanta; scomposizione del rendimento in 1,5 punti di prezzo e il resto affitto','<span class="tag">non verificato</span> Citati dall\'episodio e usati solo per spiegare il ragionamento, mai nei calcoli','—']
 ];
 function renderSources(){
   var t = '<thead><tr><th>Dato</th><th>Valore</th><th>Fonte</th><th>Data</th></tr></thead><tbody>';
