@@ -42,6 +42,14 @@ window.HUB = {
       description: "Calcola quanto vale oggi il tuo reddito futuro e quante azioni puoi permetterti in base al tipo di lavoro, con la spiegazione della formula di Merton.",
       tags: ["capitale umano", "asset allocation", "azioni", "pensione", "Merton"],
       file: "capitale-umano-portafoglio.html"
+    },
+    {
+      id: "laboratorio-investimenti",
+      name: "Laboratorio investimenti",
+      category: "pianificazione",
+      description: "Prova un piano di investimento: dividi tra azioni, obbligazioni e liquidità, confronta portafogli e vedi con che probabilità raggiungi il tuo obiettivo.",
+      tags: ["investimenti", "portafoglio", "ETF", "simulazione", "costi", "tasse"],
+      file: "laboratorio-investimenti.html"
     }
   ]
 };
