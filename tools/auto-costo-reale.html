@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auto: il costo vero su 3–10 anni · contanti, finanziamento, leasing, noleggio</title>
+<meta name="description" content="Confronta contanti, finanziamento, leasing e noleggio a lungo termine di un'auto su 3–10 anni, con svalutazione, costi di possesso e costo del denaro.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --bg:#EDF0F7; --panel:#FFFFFF; --panel2:#F4F6FB; --ink:#0B1730; --muted:#4A5977; --line:#C8D1E3;
+  --gold:#8F6710; --gold-strong:#B8861B; --gold-soft:#F2E6C4; --focus:#8F6710; --good:#14705E; --bad:#A63348;
+  --a:#8F6710; --b:#1F5FAE; --c:#0E7C6B; --d:#B83A56; --e:#5B4FC4;
+  --k1:#B8861B; --k2:#4F79BD; --k3:#2F8F80; --k4:#BE6B44; --k5:#7C859B; --chip-ink:#FFFFFF;
+  --serif:'Fraunces','Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;
+  --sans:'Instrument Sans','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg:#0A1630; --panel:#112448; --panel2:#0E1E3E; --ink:#EEF1F9; --muted:#AAB7D2; --line:#2B4274;
+    --gold:#D9B45F; --gold-strong:#EBCB82; --gold-soft:#3A3524; --focus:#EBCB82; --good:#5FC9B2; --bad:#F09AA8;
+    --a:#D9B45F; --b:#7FB3F0; --c:#5FC9B8; --d:#EE8DA0; --e:#B8B2F2;
+    --k1:#D9B45F; --k2:#6E9BE0; --k3:#4DB5A4; --k4:#E08B63; --k5:#8D97B0; --chip-ink:#0A1630;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:#0A1630; --panel:#112448; --panel2:#0E1E3E; --ink:#EEF1F9; --muted:#AAB7D2; --line:#2B4274;
+  --gold:#D9B45F; --gold-strong:#EBCB82; --gold-soft:#3A3524; --focus:#EBCB82; --good:#5FC9B2; --bad:#F09AA8;
+  --a:#D9B45F; --b:#7FB3F0; --c:#5FC9B8; --d:#EE8DA0; --e:#B8B2F2;
+  --k1:#D9B45F; --k2:#6E9BE0; --k3:#4DB5A4; --k4:#E08B63; --k5:#8D97B0; --chip-ink:#0A1630;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.15;margin:0}
+h1{font-size:clamp(1.7rem,4.6vw,2.6rem);letter-spacing:-.01em}
+h2{font-size:1.35rem;margin-bottom:.35rem}
+h3{font-size:1.05rem;margin:0 0 .25rem}
+p{margin:.3rem 0}
+a{color:var(--gold-strong)}
+.num{font-variant-numeric:tabular-nums}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+button,input,select{font:inherit;color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 16px}
+.layout>*,.hero .wrap>*{min-width:0}
+
+/* Testata con quadrante */
+.hero{background:linear-gradient(160deg,#0A1630 0%,#122A52 100%);color:#EEF1F9;border-bottom:3px solid var(--gold-strong)}
+.hero .wrap{display:grid;grid-template-columns:1fr minmax(240px,320px);gap:24px;align-items:center;padding-top:28px;padding-bottom:26px}
+.hero p{color:#C7D2EA}
+.hero .lede{max-width:56ch;font-family:var(--serif);font-size:1.05rem;margin-top:.5rem}
+.verdict{margin-top:14px;padding:12px 14px;border-left:4px solid #EBCB82;background:rgba(255,255,255,.07);color:#F5F7FC!important;border-radius:0 8px 8px 0;font-size:1.02rem}
+.verdict small{display:block;margin-top:6px;color:#C7D2EA;font-size:.9rem}
+.presets{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.presets button{min-height:44px;padding:8px 14px;border:1px solid #6E83B5;background:rgba(255,255,255,.06);color:#F5F7FC;border-radius:8px;cursor:pointer}
+.presets button[aria-pressed="true"]{background:#EBCB82;border-color:#EBCB82;color:#0A1630;font-weight:600}
+.presets button:hover{border-color:#EBCB82}
+.dial-wrap{margin:0;text-align:center}
+.dial-wrap svg{width:100%;max-width:320px;height:auto}
+.dial-track{fill:none;stroke:#2B4274;stroke-width:14;stroke-linecap:round}
+.dial-fill{fill:none;stroke:#EBCB82;stroke-width:14;stroke-linecap:round}
+.dial-tick{stroke:#8FA2CC;stroke-width:1.5}
+.needle{stroke:#F5F7FC;stroke-width:3;stroke-linecap:round}
+.hub{fill:#EBCB82;stroke:#0A1630;stroke-width:3}
+.dial-num{font-family:var(--serif);font-size:25px;fill:#F5F7FC;font-weight:600}
+.dial-end{font-size:11px;fill:#AAB7D2}
+.dial-cap{font-size:.86rem;color:#C7D2EA;margin-top:2px}
+@media (prefers-reduced-motion: no-preference){
+  #needle{transition:transform .5s ease}
+  .dial-fill{transition:stroke-dasharray .5s ease}
+}
+
+/* Layout */
+.layout{display:grid;grid-template-columns:minmax(300px,360px) minmax(0,1fr);gap:24px;padding-top:22px;padding-bottom:40px;align-items:start}
+.controls{position:sticky;top:8px;max-height:calc(100vh - 16px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px 14px 14px}
+.controls summary{cursor:pointer;font-family:var(--serif);font-size:1.05rem;font-weight:600;padding:12px 0 6px;min-height:44px}
+.controls details{border-bottom:1px solid var(--line)}
+.controls details:last-of-type{border-bottom:0}
+.f{margin:10px 0}
+.f label{display:block;font-weight:600;font-size:.92rem}
+.f .row{display:flex;gap:8px;align-items:center;margin-top:4px}
+.f input[type=range]{flex:1;min-width:0;accent-color:var(--gold-strong)}
+.f input[type=number],.f select{min-height:40px;border:1px solid var(--line);background:var(--panel2);border-radius:6px;padding:4px 8px}
+.f input[type=number]{width:104px;font-variant-numeric:tabular-nums}
+.f select{width:100%}
+.f .unit{font-size:.85rem;color:var(--muted);white-space:nowrap}
+.f small{display:block;color:var(--muted);font-size:.82rem;margin-top:2px}
+.f .tag{display:inline-block;font-weight:500;font-size:.74rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:0 7px;margin-left:6px;vertical-align:1px}
+.f .tag.mine{color:var(--gold);border-color:var(--gold)}
+.f.check label{display:flex;gap:8px;align-items:flex-start;font-weight:600}
+.f.check input{margin-top:4px;width:18px;height:18px;accent-color:var(--gold-strong)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.chips button,.btn{min-height:40px;padding:4px 12px;border:1px solid var(--line);background:var(--panel2);border-radius:999px;cursor:pointer}
+.chips button[aria-pressed="true"]{border-color:var(--gold);background:var(--gold-soft);font-weight:600}
+.btn.gold{border-color:var(--gold);color:var(--gold);font-weight:600}
+
+/* Contenuti */
+main section{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:18px}
+main section>p.sub{color:var(--muted);max-width:70ch}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
+th:first-child,td:first-child{text-align:left}
+thead th{vertical-align:bottom;font-weight:600}
+td.best,th.best{background:var(--gold-soft)}
+.badge{display:block;font-size:.76rem;font-weight:600;color:var(--gold)}
+.chip{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:.78rem;font-weight:700;color:var(--chip-ink);margin-right:6px}
+.ch-A{background:var(--a)}.ch-B{background:var(--b)}.ch-C{background:var(--c)}.ch-D{background:var(--d)}.ch-E{background:var(--e)}
+.notes{margin:10px 0 0;padding-left:1.1rem;color:var(--muted);font-size:.88rem}
+.chart{margin-top:10px}
+.chart svg{width:100%;height:auto;display:block}
+.axis{stroke:var(--line);stroke-width:1}
+.grid{stroke:var(--line);stroke-width:1;stroke-dasharray:2 4;opacity:.7}
+.zero{stroke:var(--muted);stroke-width:1.2}
+.tk{font-size:11px;fill:var(--muted)}
+.ttl{font-size:11px;fill:var(--muted)}
+.vl{stroke:var(--muted);stroke-width:1;stroke-dasharray:4 4}
+.vl-now{stroke:var(--gold);stroke-width:2}
+.vl-t{font-size:10.5px;fill:var(--muted)}
+.vl-tn{font-size:10.5px;fill:var(--gold);font-weight:700}
+.ln{fill:none;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+.ln-A{stroke:var(--a)}.ln-B{stroke:var(--b)}.ln-C{stroke:var(--c);stroke-dasharray:7 4}.ln-D{stroke:var(--d);stroke-dasharray:2 4}.ln-E{stroke:var(--e);stroke-dasharray:10 3 2 3}
+.el{font-size:11px;font-weight:700}
+.el-A{fill:var(--a)}.el-B{fill:var(--b)}.el-C{fill:var(--c)}.el-D{fill:var(--d)}.el-E{fill:var(--e)}
+.seg-auto{fill:var(--k1)}.seg-ins{fill:var(--k2)}.seg-man{fill:var(--k3)}.seg-fuel{fill:var(--k4)}.seg-opp{fill:var(--k5)}
+.bar-tot{font-size:11.5px;font-weight:700;fill:var(--ink)}
+.bar-lbl{font-size:11.5px;fill:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:8px;font-size:.84rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:14px;height:14px;border-radius:3px;display:inline-block}
+.sw-auto{background:var(--k1)}.sw-ins{background:var(--k2)}.sw-man{background:var(--k3)}.sw-fuel{background:var(--k4)}.sw-opp{background:var(--k5)}
+.sl{width:26px;height:0;border-top:3px solid;display:inline-block}
+.sl-A{border-color:var(--a)}.sl-B{border-color:var(--b)}.sl-C{border-color:var(--c);border-top-style:dashed}.sl-D{border-color:var(--d);border-top-style:dotted}.sl-E{border-color:var(--e);border-top-style:dashed}
+details.vals{margin-top:8px;font-size:.88rem}
+details.vals summary{cursor:pointer;min-height:36px;color:var(--muted)}
+.cap{color:var(--muted);font-size:.88rem;margin-top:6px}
+.heat td,.heat th{text-align:center;white-space:nowrap}
+.heat td small{display:block;color:var(--muted)}
+.mc{display:grid;gap:10px;margin-top:10px}
+.mc-row{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:center}
+.mc-name{font-weight:600;font-size:.9rem}
+.mc-track{position:relative;height:16px;background:var(--panel2);border:1px solid var(--line);border-radius:8px}
+.mc-range{position:absolute;top:2px;bottom:2px;border-radius:6px;opacity:.85}
+.mc-med{position:absolute;top:-3px;bottom:-3px;width:3px;background:var(--ink);border-radius:2px}
+.mc-txt{grid-column:2;font-size:.84rem;color:var(--muted);margin-top:-6px}
+.mc-A .mc-range{background:var(--a)}.mc-B .mc-range{background:var(--b)}.mc-C .mc-range{background:var(--c)}.mc-D .mc-range{background:var(--d)}.mc-E .mc-range{background:var(--e)}
+.src td:nth-child(2){text-align:left}
+.src td,.src th{text-align:left}
+.tg{font-size:.74rem;border:1px solid var(--line);border-radius:999px;padding:0 7px;white-space:nowrap}
+.tg.ver{color:var(--good);border-color:var(--good)}
+.tg.stima{color:var(--gold);border-color:var(--gold)}
+.tg.es{color:var(--muted)}
+.warn{border-left:4px solid var(--gold);padding:8px 12px;background:var(--gold-soft);border-radius:0 8px 8px 0;margin-top:10px}
+footer{padding:0 0 40px}
+footer .wrap{color:var(--muted);font-size:.88rem}
+.topbar{display:flex;justify-content:flex-end;gap:8px;padding:8px 0 0}
+.topbar .btn{background:rgba(255,255,255,.08);border-color:#6E83B5;color:#F5F7FC;min-height:36px;font-size:.84rem}
+
+@media (max-width: 980px){
+  .hero .wrap{grid-template-columns:minmax(0,1fr)}
+  .layout{grid-template-columns:minmax(0,1fr)}
+  .controls{position:static;max-height:none}
+}
+@media (max-width: 480px){
+  .wrap{padding:0 12px}
+  main section{padding:14px 12px}
+  .mc-row{grid-template-columns:1fr}
+  .mc-txt{grid-column:1;margin-top:-4px}
+  .f input[type=number]{width:92px}
+}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="topbar"><button type="button" class="btn" id="theme-toggle">Tema chiaro/scuro</button></div>
+      <h1>Quanto costa davvero un'auto</h1>
+      <p class="lede">Contanti, finanziamento, leasing e noleggio a confronto su 3–10 anni, con svalutazione, costi di possesso e il costo dei soldi che non spendi.</p>
+      <div class="presets" id="examples" role="group" aria-label="Tre esempi di partenza"></div>
+      <p class="verdict" id="verdict" aria-live="polite"></p>
+    </div>
+    <figure class="dial-wrap">
+      <svg id="dial" viewBox="0 0 280 186" role="img" aria-label="Quadrante del costo mensile"></svg>
+      <figcaption class="dial-cap" id="dial-cap"></figcaption>
+    </figure>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <aside class="controls" aria-label="Ipotesi modificabili">
+    <details open style="border:0">
+      <summary>Ipotesi (tutte modificabili)</summary>
+      <p class="cap" style="margin:0 0 6px">Le voci «suggerito» si adattano a prezzo ed età dell'auto. Se ne modifichi una, resta tua.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" class="btn gold" id="reset-auto">Ripristina i suggerimenti</button>
+        <button type="button" class="btn" id="reset-all">Riparti da zero</button>
+      </div>
+    </details>
+    <div id="form"></div>
+  </aside>
+
+  <main>
+    <section aria-labelledby="h-cmp">
+      <h2 id="h-cmp">Confronto affiancato</h2>
+      <p class="sub">Stessa auto, quattro modi di averla, più l'alternativa di comprarla usata. Il costo equivalente al mese tiene conto del valore dell'auto a fine periodo e dei soldi immobilizzati.</p>
+      <div id="cmp"></div>
+      <ul class="notes" id="cmp-notes"></ul>
+      <div class="chart" id="stack"></div>
+    </section>
+
+    <section aria-labelledby="h-h">
+      <h2 id="h-h">Quanto la tieni cambia la risposta</h2>
+      <p class="sub">Cambiare auto spesso è la scelta più costosa perché si paga ogni volta la svalutazione più ripida. Qui vedi come si muovono le formule da 3 a 10 anni.</p>
+      <div class="chart" id="ch-h"></div>
+    </section>
+
+    <section aria-labelledby="h-p">
+      <h2 id="h-p">Dal prezzo piccolo al prezzo grande</h2>
+      <p class="sub">Tutti i prezzi tra 5.000 e 80.000 €, con costi che si adattano al prezzo (le tue modifiche restano). Le linee tratteggiate verticali sono i tre esempi: 7.000, 20.000 e 50.000 €.</p>
+      <div class="chart" id="ch-p"></div>
+    </section>
+
+    <section aria-labelledby="h-e">
+      <h2 id="h-e">Finanziare per lo sconto, poi estinguere</h2>
+      <p class="sub">Se il concessionario ti fa uno sconto maggiore con il finanziamento, puoi prenderlo ed estinguere presto. Il grafico mostra quanto risparmi rispetto ai contanti in base al mese di estinzione, già con indennizzo e rimborso delle spese.</p>
+      <div class="chart" id="ch-e"></div>
+      <p class="cap" id="early-cap"></p>
+    </section>
+
+    <section aria-labelledby="h-s">
+      <h2 id="h-s">Chi vince se cambiano km e svalutazione</h2>
+      <p class="sub">Analisi di sensibilità: la formula più economica per la stessa auto al variare dei chilometri e dello scenario di svalutazione.</p>
+      <div id="heat"></div>
+    </section>
+
+    <section aria-labelledby="h-m">
+      <h2 id="h-m">Quanto pesa l'incertezza</h2>
+      <p class="sub">Svalutazione, carburante, chilometri e rendimento dei soldi sono incerti. Questa simulazione li fa variare a caso 300 volte, sempre con lo stesso seme, e mostra l'intervallo di costo di ogni formula.</p>
+      <div id="mc"></div>
+    </section>
+
+    <section aria-labelledby="h-f">
+      <h2 id="h-f">Dati usati e fonti</h2>
+      <div id="sources"></div>
+    </section>
+
+    <section aria-labelledby="h-n">
+      <h2 id="h-n">Cosa non è modellato</h2>
+      <ul class="notes" style="font-size:.95rem">
+        <li>Incentivi statali o locali e auto elettriche (puoi simularle a mano con consumo in kWh/100 km e prezzo per kWh).</li>
+        <li>Passaggio di proprietà, imposta di trascrizione e spese di rivendita: pesano soprattutto sull'usato.</li>
+        <li>Bonus-malus, sinistri, multe, parcheggio, pedaggi e danni a fine noleggio.</li>
+        <li>Vantaggi fiscali per partite IVA: qui si ragiona da privato, con IVA inclusa.</li>
+        <li>Il prezzo del carburante resta fisso a parte l'inflazione che scegli.</li>
+      </ul>
+      <p class="warn"><b>Avvertenza.</b> Strumento di confronto, non consulenza finanziaria, fiscale o legale. I valori di partenza sono medie o stime: i preventivi reali valgono più di ogni media.</p>
+    </section>
+  </main>
+</div>
+
+<script>
+/*MODEL-START*/
+var CURVES = {
+  prudente:    [[0,1],[1,.75],[2,.60],[3,.50],[4,.37],[5,.29],[6,.25],[8,.19],[10,.15],[14,.09],[20,.05]],
+  centrale:    [[0,1],[1,.80],[2,.68],[3,.58],[4,.49],[5,.42],[6,.37],[8,.29],[10,.23],[14,.15],[20,.08]],
+  ottimistico: [[0,1],[1,.85],[2,.76],[3,.68],[4,.61],[5,.55],[6,.50],[8,.41],[10,.34],[14,.23],[20,.12]]
+};
+var ALT_KEYS = ['A','B','C','D','E'];
+var ALT_NAMES = {
+  A: 'Contanti',
+  B: 'Finanziamento',
+  C: 'Leasing',
+  D: 'Noleggio lungo termine',
+  E: 'Usato in contanti'
+};
+var CATS = ['auto','ins','bol','man','fuel'];
+
+var DEFAULTS = {
+  price: 20000, age0: 0, scen: 'prudente', K: 15000, H: 6, infl: 2, rNet: 2.6,
+  fuelType: 'benzina', cons: 6, fuelPrice: 2.111,
+  kW: 85, tariff: 2.58, rc: 422, kaskoPct: 1.4, m0: 600,
+  sCash: 3, sFin: 11, anticipoB: 0, tan: 7.25, istrB: 240, nB: 48, earlyN: 0, refundProp: true, minMonths: 0,
+  anticipoL: 3000, canoneL: 250, nL: 36, riscattoL: 11600, istrL: 300, optL: 'riscatta', tanL: 8.5,
+  canoneN: 290, anticipoN: 1600, nN: 36, kmIncl: 15000, penKm: 0.10, extraN: 100,
+  useE: true, ageU: 3
+};
+var AUTO_KEYS = ['kW','kaskoPct','m0','cons','fuelPrice','sCash','sFin','istrB','anticipoL','riscattoL','canoneL','canoneN','anticipoN','kmIncl','ageU'];
+var BASE_CONS = { benzina: 6.0, diesel: 5.0, ibrida: 4.6 };
+var FUEL_PRICE = { benzina: 2.111, diesel: 2.316, ibrida: 2.111 };
+
+function clamp(x, a, b){ return Math.min(b, Math.max(a, x)); }
+function num(x, d){ x = Number(x); return isFinite(x) ? x : d; }
+
+function vOf(curve, age){
+  if (!(age > 0)) return 1;
+  for (var i = 1; i < curve.length; i++){
+    if (age <= curve[i][0]){
+      var a = curve[i-1], b = curve[i];
+      return a[1] + (b[1] - a[1]) * (age - a[0]) / (b[0] - a[0]);
+    }
+  }
+  return curve[curve.length - 1][1];
+}
+function lerpCurve(c1, c2, u){
+  return c1.map(function(pt, i){ return [pt[0], pt[1] + (c2[i][1] - pt[1]) * u]; });
+}
+
+function pmtCalc(P, annualRate, n){
+  var r = annualRate / 12;
+  if (n <= 0 || P <= 0) return 0;
+  if (Math.abs(r) < 1e-12) return P / n;
+  return P * r / (1 - Math.pow(1 + r, -n));
+}
+function balanceAfter(P, annualRate, n, k){
+  var r = annualRate / 12, pm = pmtCalc(P, annualRate, n);
+  if (Math.abs(r) < 1e-12) return Math.max(0, P - pm * k);
+  return Math.max(0, P * Math.pow(1 + r, k) - pm * (Math.pow(1 + r, k) - 1) / r);
+}
+
+/* Valori suggeriti: tutto cio' che dipende da prezzo, eta' e uso. Le voci modificate a mano (dirty) restano intatte. */
+function applyAuto(p, dirty){
+  dirty = dirty || {};
+  function set(k, v){ if (!dirty[k]) p[k] = v; }
+  var price = p.price, age0 = p.age0;
+  set('kW', clamp(Math.round(55 + 1.5 * price / 1000 * (age0 > 0 ? 0.9 : 1)), 50, 300));
+  set('kaskoPct', age0 <= 2 ? 1.4 : (age0 <= 6 ? 1.0 : 0));
+  set('m0', Math.round(400 + 0.01 * price));
+  var sizeF = 0.9 + 0.35 * clamp((price - 7000) / 43000, 0, 1);
+  set('cons', Math.round((BASE_CONS[p.fuelType] || 6) * sizeF * (1 + 0.012 * age0) * 10) / 10);
+  set('fuelPrice', FUEL_PRICE[p.fuelType] || 2.111);
+  set('sCash', age0 > 0 ? 0 : 3);
+  set('sFin', age0 > 0 ? 0 : 11);
+  set('istrB', clamp(Math.round(price * 0.012 / 10) * 10, 150, 600));
+  var pCash = price * (1 - p.sCash / 100);
+  set('anticipoL', Math.round(0.15 * pCash));
+  set('riscattoL', Math.round(vOf(CURVES.centrale, p.nL / 12) * price / 50) * 50);
+  var F = pCash - p.anticipoL, R = p.riscattoL, r = p.tanL / 1200, n = Math.max(1, p.nL);
+  var canoneL = (F - R / Math.pow(1 + r, n)) * r / (1 - Math.pow(1 + r, -n));
+  set('canoneL', Math.max(0, Math.round(canoneL)));
+  var perc = clamp(0.0145 + (36 - p.nN) * 0.00025, 0.008, 0.022);
+  set('canoneN', Math.round(price * perc));
+  set('anticipoN', Math.round(0.08 * price));
+  set('kmIncl', Math.max(10000, Math.ceil(p.K / 5000) * 5000));
+  set('ageU', age0 === 0 ? 3 : age0 + 3);
+  return p;
+}
+
+function sf(age){ return age <= 5 ? 1 : age <= 10 ? 0.6 : age <= 14 ? 0.3 : age <= 19 ? 0.15 : 0; }
+function maintFactor(age){ return age < 3 ? 0.6 : age < 7 ? 1 : age < 11 ? 1.8 : 2.2; }
+function bolloYear(p, age){
+  var t = p.tariff;
+  var base = t * Math.min(p.kW, 100) + t * 1.5 * Math.max(p.kW - 100, 0);
+  var sup = 20 * Math.max(p.kW - 185, 0) * sf(age);
+  return base + sup;
+}
+
+function newParts(M){
+  var o = {};
+  CATS.forEach(function(c){ o[c] = new Array(M + 1).fill(0); });
+  return o;
+}
+
+/* Costi di possesso come proprietario: assicurazione e bollo a inizio anno, manutenzione e carburante spalmati sui mesi */
+function ownerRun(p, ctx, parts, ageFn){
+  for (var m = 0; m < ctx.M; m++){
+    var k = Math.floor(m / 12), f = Math.pow(1 + p.infl / 100, k), age = ageFn(m);
+    if (m % 12 === 0){
+      parts.ins[m] += (p.rc + p.kaskoPct / 100 * ctx.refNew * vOf(ctx.curve, age)) * f;
+      parts.bol[m] += bolloYear(p, age);
+    }
+    parts.man[m] += p.m0 * maintFactor(age) * f / 12;
+    parts.fuel[m] += p.K * p.cons / 100 * p.fuelPrice * f / 12;
+  }
+}
+
+function irrMonthly(S, pays){
+  if (!(S > 0)) return null;
+  function f(i){
+    var s = 0;
+    for (var m = 1; m < pays.length; m++){ if (pays[m]) s += pays[m] / Math.pow(1 + i, m); }
+    return s - S;
+  }
+  var lo = -0.01, hi = 0.06;
+  if (!(f(lo) > 0 && f(hi) < 0)) return null;
+  var mid = 0;
+  for (var k = 0; k < 90; k++){
+    mid = (lo + hi) / 2;
+    if (f(mid) > 0) lo = mid; else hi = mid;
+  }
+  return mid;
+}
+
+function altA(p, ctx){
+  var parts = newParts(ctx.M);
+  parts.auto[0] = p.price * (1 - p.sCash / 100);
+  ownerRun(p, ctx, parts, function(m){ return p.age0 + Math.floor(m / 12); });
+  return { parts: parts, resid: ctx.refNew * vOf(ctx.curve, p.age0 + ctx.M / 12), extra: {} };
+}
+
+function altB(p, ctx, earlyOverride){
+  var M = ctx.M, parts = newParts(M);
+  var priceCash = p.price * (1 - p.sCash / 100);
+  var priceFin = p.price * (1 - p.sFin / 100);
+  var a = clamp(p.anticipoB, 0, priceFin);
+  var L0 = priceFin - a;
+  var n = Math.max(1, Math.round(p.nB));
+  var istr = L0 > 0 ? p.istrB : 0;
+  var pm = L0 > 0 ? pmtCalc(L0, p.tan / 100, n) : 0;
+  var early = earlyOverride != null ? earlyOverride : p.earlyN;
+  var N = (early > 0 && early < n) ? Math.round(early) : n;
+  var Neff = Math.min(N, M);
+  parts.auto[0] += a + istr;
+  for (var m = 1; m <= Neff; m++) parts.auto[m] += pm;
+  var fee = 0, refund = 0, claw = 0, payoff = 0;
+  if (L0 > 0 && Neff < n){
+    var bal = balanceAfter(L0, p.tan / 100, n, Neff);
+    var remaining = n - Neff;
+    payoff = bal;
+    if (bal > 10000){
+      var remInterest = Math.max(0, pm * remaining - bal);
+      fee = Math.min(bal * (remaining > 12 ? 0.01 : 0.005), remInterest);
+    }
+    if (p.refundProp) refund = istr * remaining / n;
+    if (p.minMonths > 0 && Neff < p.minMonths) claw = Math.max(0, priceCash - priceFin);
+    parts.auto[Neff] += bal + fee - refund + claw;
+  }
+  ownerRun(p, ctx, parts, function(mm){ return p.age0 + Math.floor(mm / 12); });
+  var pays = parts.auto.slice();
+  pays[0] = 0;
+  var S = priceCash - a - istr;
+  var i = L0 > 0 ? irrMonthly(S, pays) : null;
+  var interest = 0;
+  if (L0 > 0){
+    var paid = 0;
+    for (var q = 1; q <= Neff; q++) paid += pm;
+    interest = paid + payoff + fee - refund + claw - L0 + istr;
+  }
+  return {
+    parts: parts,
+    resid: ctx.refNew * vOf(ctx.curve, p.age0 + M / 12),
+    extra: {
+      rata: pm, finanziato: L0, costoCredito: interest, fee: fee, rimborso: refund, clausola: claw,
+      irr: i == null ? null : Math.pow(1 + i, 12) - 1, mesiPagati: Neff
+    }
+  };
+}
+
+function altC(p, ctx){
+  if (p.age0 > 0) return { unavailable: 'Solo per auto nuove' };
+  var M = ctx.M, parts = newParts(M), L = Math.max(1, Math.round(p.nL)), notes = [];
+  if (p.optL === 'riscatta'){
+    var Lc = Math.min(L, M);
+    parts.auto[0] += p.anticipoL + p.istrL;
+    for (var m = 1; m <= Lc; m++) parts.auto[m] += p.canoneL;
+    parts.auto[Lc] += p.riscattoL;
+    if (L > M) notes.push('Durata del contratto oltre l\'orizzonte: assumo riscatto e rivendita a fine orizzonte.');
+    ownerRun(p, ctx, parts, function(mm){ return Math.floor(mm / 12); });
+    return { parts: parts, resid: ctx.refNew * vOf(ctx.curve, M / 12), extra: { notes: notes } };
+  }
+  for (var c = 0; c * L < M; c++){
+    var start = c * L, len = Math.min(L, M - start), share = len / L;
+    parts.auto[start] += (p.anticipoL + p.istrL) * share;
+    for (var j = 1; j <= len; j++) parts.auto[start + j] += p.canoneL;
+  }
+  notes.push('Restituzione a fine contratto e nuovo contratto identico: anticipo proporzionale nell\'ultimo ciclo.');
+  ownerRun(p, ctx, parts, function(mm){ return Math.floor((mm % L) / 12); });
+  return { parts: parts, resid: 0, extra: { notes: notes } };
+}
+
+function altD(p, ctx){
+  if (p.age0 > 0) return { unavailable: 'Solo per auto nuove' };
+  var M = ctx.M, parts = newParts(M), L = Math.max(1, Math.round(p.nN));
+  var penTotal = 0;
+  for (var c = 0; c * L < M; c++){
+    var start = c * L, len = Math.min(L, M - start), share = len / L;
+    parts.auto[start] += p.anticipoN * share;
+    for (var j = 1; j <= len; j++) parts.auto[start + j] += p.canoneN;
+    var pen = Math.max(0, p.K - p.kmIncl) * len / 12 * p.penKm;
+    parts.auto[start + len] += pen;
+    penTotal += pen;
+  }
+  for (var m = 0; m < M; m++){
+    var f = Math.pow(1 + p.infl / 100, Math.floor(m / 12));
+    parts.fuel[m] += p.K * p.cons / 100 * p.fuelPrice * f / 12;
+    parts.man[m] += p.extraN * f / 12;
+  }
+  return { parts: parts, resid: 0, extra: { penaleKm: penTotal, notes: ['Dopo la scadenza assumo un nuovo contratto con lo stesso canone.'] } };
+}
+
+function altE(p, ctx){
+  var ageU = Math.max(p.ageU, p.age0 + 1);
+  if (!p.useE) return { unavailable: 'Disattivato' };
+  var M = ctx.M, parts = newParts(M);
+  var priceU = ctx.refNew * vOf(ctx.curve, ageU);
+  parts.auto[0] = priceU;
+  ownerRun(p, ctx, parts, function(m){ return ageU + Math.floor(m / 12); });
+  return { parts: parts, resid: ctx.refNew * vOf(ctx.curve, ageU + M / 12), extra: { ageU: ageU, prezzoUsato: priceU } };
+}
+
+function summarize(key, raw, p, ctx){
+  var base = { key: key, label: ALT_NAMES[key] };
+  if (raw.unavailable){ base.available = false; base.reason = raw.unavailable; return base; }
+  var M = ctx.M, rm = ctx.rm, parts = raw.parts;
+  var sums = {}, total = 0, fv = 0;
+  CATS.forEach(function(c){
+    var s = 0;
+    for (var m = 0; m <= M; m++){ s += parts[c][m]; fv += parts[c][m] * Math.pow(1 + rm, M - m); }
+    sums[c] = s; total += s;
+  });
+  fv -= raw.resid;
+  var net = total - raw.resid;
+  var pv = fv / Math.pow(1 + rm, M);
+  var perMonth = rm > 1e-9 ? pv * rm / (1 - Math.pow(1 + rm, -M)) : pv / M;
+  var km = p.K * M / 12;
+  base.available = true;
+  base.total = total;
+  base.resid = raw.resid;
+  base.net = net;
+  base.fv = fv;
+  base.perMonth = perMonth;
+  base.perKm = km > 0 ? perMonth * 12 / p.K : null;
+  base.init = parts.auto[0];
+  base.breakdown = {
+    auto: sums.auto - raw.resid, ins: sums.ins, bol: sums.bol, man: sums.man, fuel: sums.fuel, opp: fv - net
+  };
+  base.extra = raw.extra || {};
+  return base;
+}
+
+function computeAll(p, opts){
+  opts = opts || {};
+  var M = Math.max(12, Math.round(p.H * 12));
+  var curve = opts.curve || CURVES[p.scen] || CURVES.prudente;
+  var ctx = {
+    M: M, curve: curve, refNew: p.price / vOf(curve, p.age0),
+    rm: Math.pow(1 + p.rNet / 100, 1 / 12) - 1
+  };
+  var alts = [
+    summarize('A', altA(p, ctx), p, ctx),
+    summarize('B', altB(p, ctx), p, ctx),
+    summarize('C', altC(p, ctx), p, ctx),
+    summarize('D', altD(p, ctx), p, ctx),
+    summarize('E', altE(p, ctx), p, ctx)
+  ];
+  var avail = alts.filter(function(a){ return a.available && a.key !== 'E'; }).sort(function(a, b){ return a.fv - b.fv; });
+  var used = alts[4].available ? alts[4] : null;
+  return { alts: alts, ranking: avail, best: avail[0], second: avail[1] || null, used: used, M: M };
+}
+
+function earlyCurve(p){
+  var n = Math.max(1, Math.round(p.nB)), out = [];
+  var M = Math.max(12, Math.round(p.H * 12));
+  var ctx = { M: M, curve: CURVES[p.scen], refNew: p.price / vOf(CURVES[p.scen], p.age0), rm: Math.pow(1 + p.rNet / 100, 1 / 12) - 1 };
+  var A = summarize('A', altA(p, ctx), p, ctx);
+  for (var N = 1; N <= n; N++){
+    var B = summarize('B', altB(p, ctx, N >= n ? 0 : N), p, ctx);
+    out.push({ N: N, saving: A.fv - B.fv });
+  }
+  return out;
+}
+
+function sweepH(p, hs){
+  var res = {};
+  ALT_KEYS.forEach(function(k){ res[k] = []; });
+  hs.forEach(function(h){
+    var q = Object.assign({}, p, { H: h });
+    var r = computeAll(q);
+    r.alts.forEach(function(a){ res[a.key].push(a.available ? a.perMonth : null); });
+  });
+  return res;
+}
+
+function sweepPrice(p, dirty, prices){
+  var res = {};
+  ALT_KEYS.forEach(function(k){ res[k] = []; });
+  prices.forEach(function(pr){
+    var q = Object.assign({}, p, { price: pr });
+    applyAuto(q, dirty);
+    var r = computeAll(q);
+    r.alts.forEach(function(a){ res[a.key].push(a.available ? a.perMonth : null); });
+  });
+  return res;
+}
+
+function winnerGrid(p, scens, kms){
+  return scens.map(function(sc){
+    return kms.map(function(km){
+      var q = Object.assign({}, p, { scen: sc, K: km });
+      var r = computeAll(q);
+      var gap = r.second ? (r.second.perMonth - r.best.perMonth) : 0;
+      return { key: r.best.key, gap: gap };
+    });
+  });
+}
+
+function mulberry32(a){
+  return function(){
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    var t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+function gauss(rng){
+  var u = Math.max(1e-9, rng()), v = rng();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+}
+function pct(arr, q){
+  var s = arr.slice().sort(function(a, b){ return a - b; });
+  var i = (s.length - 1) * q, lo = Math.floor(i), hi = Math.ceil(i);
+  return s[lo] + (s[hi] - s[lo]) * (i - lo);
+}
+
+/* Simulazione di mercato: incertezza su svalutazione, prezzo carburante, km e rendimento alternativo */
+function monteCarlo(p, runs, seed){
+  var rng = mulberry32(seed || 12345);
+  var data = {}, wins = {};
+  ALT_KEYS.forEach(function(k){ data[k] = []; wins[k] = 0; });
+  for (var i = 0; i < runs; i++){
+    var u = rng();
+    var curve = lerpCurve(CURVES.prudente, CURVES.ottimistico, u);
+    var q = Object.assign({}, p, {
+      fuelPrice: p.fuelPrice * Math.exp(0.15 * gauss(rng)),
+      K: Math.max(1000, p.K * Math.exp(0.12 * gauss(rng))),
+      rNet: rng() * 5
+    });
+    var r = computeAll(q, { curve: curve });
+    r.alts.forEach(function(a){ if (a.available) data[a.key].push(a.perMonth); });
+    wins[r.best.key]++;
+  }
+  var out = {};
+  ALT_KEYS.forEach(function(k){
+    if (data[k].length){
+      out[k] = { p10: pct(data[k], 0.1), p50: pct(data[k], 0.5), p90: pct(data[k], 0.9), win: wins[k] / runs };
+    }
+  });
+  return out;
+}
+/*MODEL-END*/
+if (typeof module !== 'undefined') {
+  module.exports = { CURVES: CURVES, DEFAULTS: DEFAULTS, AUTO_KEYS: AUTO_KEYS, vOf: vOf, pmtCalc: pmtCalc, applyAuto: applyAuto,
+    computeAll: computeAll, earlyCurve: earlyCurve, sweepH: sweepH, sweepPrice: sweepPrice, winnerGrid: winnerGrid, monteCarlo: monteCarlo,
+    balanceAfter: balanceAfter, bolloYear: bolloYear };
+}
+
+/*UI-START*/
+(function(){
+  'use strict';
+  var STORE_KEY = 'auto-costo-reale-v1';
+  var state = Object.assign({}, DEFAULTS);
+  var dirty = {};
+  var lastRes = null;
+
+  var nf0 = new Intl.NumberFormat('it-IT', { maximumFractionDigits: 0 });
+  var nf1 = new Intl.NumberFormat('it-IT', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  var nf2 = new Intl.NumberFormat('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  function ok(x){ return typeof x === 'number' && isFinite(x); }
+  function E0(x){ return ok(x) ? nf0.format(Math.round(x)) + ' €' : '—'; }
+  function N0(x){ return ok(x) ? nf0.format(Math.round(x)) : '—'; }
+  function P1(x){ return ok(x) ? nf1.format(x) + '%' : '—'; }
+  function P2(x){ return ok(x) ? nf2.format(x) + '%' : '—'; }
+  function $(id){ return document.getElementById(id); }
+  function el(tag, attrs, html){
+    var e = document.createElement(tag);
+    if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (html != null) e.innerHTML = html;
+    return e;
+  }
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  function S(tag, attrs, text){
+    var e = document.createElementNS(SVGNS, tag);
+    if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  /* ---------- Schema dei campi ---------- */
+  var GROUPS = [
+    { id: 'auto', title: 'Auto e uso', open: true, fields: [
+      { k: 'price', label: 'Prezzo dell\'auto', unit: '€', type: 'range', min: 3000, max: 100000, step: 500, hmax: 300000, help: 'Listino se è nuova, prezzo di mercato se è usata.' },
+      { k: 'age0', label: 'Età all\'acquisto', unit: 'anni', type: 'num', min: 0, max: 20, step: 1, help: '0 = nuova. Leasing e noleggio valgono solo per auto nuove.' },
+      { k: 'scen', label: 'Scenario di svalutazione', type: 'select', opts: [['prudente', 'Prudente (perde più valore)'], ['centrale', 'Centrale (stima intermedia)'], ['ottimistico', 'Ottimistico (perde meno valore)']], help: 'Le fonti discordano sulla perdita di valore: prova i tre scenari.' },
+      { k: 'K', label: 'Chilometri all\'anno', unit: 'km', type: 'range', min: 3000, max: 40000, step: 500, hmax: 100000 },
+      { k: 'H', label: 'Quanto la tieni', unit: 'anni', type: 'range', min: 3, max: 10, step: 1, hmax: 15, help: 'Orizzonte del confronto.' },
+      { k: 'fuelType', label: 'Alimentazione', type: 'select', opts: [['benzina', 'Benzina'], ['diesel', 'Gasolio'], ['ibrida', 'Ibrida (benzina)']] },
+      { k: 'cons', label: 'Consumo', unit: 'l/100 km', type: 'num', min: 0, max: 30, step: 0.1, auto: true, help: 'Se elettrica: inserisci kWh/100 km e il prezzo per kWh qui sotto.' },
+      { k: 'fuelPrice', label: 'Prezzo carburante', unit: '€/l', type: 'num', min: 0, max: 5, step: 0.001, auto: true, help: 'Media self al 30/09/2026. Cambia spesso.' },
+      { k: 'infl', label: 'Inflazione dei costi', unit: '%/anno', type: 'num', min: 0, max: 15, step: 0.1, help: 'Fa crescere carburante, assicurazione e manutenzione.' },
+      { k: 'rNet', label: 'Rendimento dei soldi non spesi', unit: '% netto', type: 'range', min: 0, max: 8, step: 0.1, hmax: 20, help: 'È il costo del denaro: cosa guadagneresti lasciandoli fermi. Un BOT a 12 mesi rende circa 2,6% netto.', chips: 'rnet' }
+    ]},
+    { id: 'poss', title: 'Costi di possesso', fields: [
+      { k: 'kW', label: 'Potenza', unit: 'kW', type: 'num', min: 20, max: 500, step: 1, auto: true, help: 'Serve per il bollo. Sopra 185 kW c\'è il superbollo.' },
+      { k: 'tariff', label: 'Tariffa bollo (fino a 100 kW)', unit: '€/kW', type: 'num', min: 1, max: 5, step: 0.01, help: 'Cambia da regione a regione.', chips: 'region' },
+      { k: 'rc', label: 'RC auto', unit: '€/anno', type: 'num', min: 0, max: 3000, step: 10, help: 'Media nazionale IVASS: 422 €. Cambia con provincia e profilo.' },
+      { k: 'kaskoPct', label: 'Kasko e furto', unit: '% del valore/anno', type: 'num', min: 0, max: 10, step: 0.1, auto: true, help: 'Calcolata sul valore dell\'auto, che scende negli anni.' },
+      { k: 'm0', label: 'Manutenzione e gomme', unit: '€/anno', type: 'num', min: 0, max: 5000, step: 10, auto: true, help: 'Valore base per un\'auto di 3–6 anni. Sale con l\'età dell\'auto.' }
+    ]},
+    { id: 'fin', title: 'Contanti e finanziamento', fields: [
+      { k: 'sCash', label: 'Sconto pagando in contanti', unit: '%', type: 'num', min: 0, max: 40, step: 0.5, auto: true, help: 'Esempio di partenza, non un dato di mercato: usa i tuoi preventivi.' },
+      { k: 'sFin', label: 'Sconto con finanziamento', unit: '%', type: 'num', min: 0, max: 40, step: 0.5, auto: true, help: 'Spesso è più alto del precedente. La differenza è lo sconto vero.' },
+      { k: 'anticipoB', label: 'Anticipo', unit: '€', type: 'num', min: 0, max: 300000, step: 100 },
+      { k: 'tan', label: 'Tasso (TAN)', unit: '%', type: 'num', min: 0, max: 25, step: 0.05, help: 'Il costo medio del credito al consumo (TAEG) è circa 10%.' },
+      { k: 'istrB', label: 'Spese di istruttoria', unit: '€', type: 'num', min: 0, max: 5000, step: 10, auto: true },
+      { k: 'nB', label: 'Durata', unit: 'mesi', type: 'num', min: 6, max: 120, step: 6 },
+      { k: 'earlyN', label: 'Estingui dopo', unit: 'mesi', type: 'num', min: 0, max: 119, step: 1, help: '0 = paghi tutte le rate. Il grafico sotto mostra quando conviene estinguere.' },
+      { k: 'refundProp', label: 'Mi viene rimborsata la quota delle spese non maturate', type: 'check', help: 'Dal 10/01/2026 vale per tutte le voci di costo.' },
+      { k: 'minMonths', label: 'Clausola: mesi minimi per tenere lo sconto', unit: 'mesi', type: 'num', min: 0, max: 60, step: 1, help: 'Se estingui prima, restituisci lo sconto extra. Cerca la clausola nel contratto di vendita.' }
+    ]},
+    { id: 'lea', title: 'Leasing (solo auto nuove)', fields: [
+      { k: 'nL', label: 'Durata', unit: 'mesi', type: 'num', min: 12, max: 84, step: 6 },
+      { k: 'anticipoL', label: 'Anticipo', unit: '€', type: 'num', min: 0, max: 300000, step: 100, auto: true },
+      { k: 'canoneL', label: 'Canone mensile', unit: '€/mese', type: 'num', min: 0, max: 5000, step: 1, auto: true, help: 'Stima calcolata da anticipo, riscatto e tasso. Sostituiscila col tuo preventivo.' },
+      { k: 'riscattoL', label: 'Riscatto finale', unit: '€', type: 'num', min: 0, max: 300000, step: 50, auto: true },
+      { k: 'istrL', label: 'Spese iniziali', unit: '€', type: 'num', min: 0, max: 5000, step: 10 },
+      { k: 'tanL', label: 'Tasso usato per stimare il canone', unit: '%', type: 'num', min: 0, max: 25, step: 0.1 },
+      { k: 'optL', label: 'A fine contratto', type: 'select', opts: [['riscatta', 'Riscatto e tengo l\'auto'], ['restituisci', 'Restituisco e riparto con un nuovo contratto']] }
+    ]},
+    { id: 'nlt', title: 'Noleggio a lungo termine (solo auto nuove)', fields: [
+      { k: 'nN', label: 'Durata', unit: 'mesi', type: 'num', min: 12, max: 60, step: 6 },
+      { k: 'canoneN', label: 'Canone mensile', unit: '€/mese', type: 'num', min: 0, max: 5000, step: 1, auto: true, help: 'Stima di partenza: sostituiscila col tuo preventivo, vale più di ogni media.' },
+      { k: 'anticipoN', label: 'Anticipo', unit: '€', type: 'num', min: 0, max: 300000, step: 100, auto: true },
+      { k: 'kmIncl', label: 'Km inclusi', unit: 'km/anno', type: 'num', min: 5000, max: 100000, step: 1000, auto: true },
+      { k: 'penKm', label: 'Penale per km in più', unit: '€/km', type: 'num', min: 0, max: 2, step: 0.01, help: 'Esempio: 0,10 €/km. Controlla il contratto.' },
+      { k: 'extraN', label: 'Extra non inclusi', unit: '€/anno', type: 'num', min: 0, max: 3000, step: 10, help: 'Franchigie, danni, usura: di solito 100–500 € a sinistro.' }
+    ]},
+    { id: 'usa', title: 'Alternativa: stessa auto, ma usata', fields: [
+      { k: 'useE', label: 'Mostra il confronto con l\'usato', type: 'check' },
+      { k: 'ageU', label: 'Età dell\'usato', unit: 'anni', type: 'num', min: 1, max: 25, step: 1, auto: true, help: 'Prezzo e valore futuro seguono la curva di svalutazione scelta.' }
+    ]}
+  ];
+  var FIELD = {};
+  GROUPS.forEach(function(g){ g.fields.forEach(function(f){ FIELD[f.k] = f; }); });
+
+  var REGIONS = [['Italia (media)', 2.58], ['Emilia-Romagna', 2.84], ['Campania / Abruzzo', 3.12]];
+  var RNETS = [['BOT 12 mesi (2,6%)', 2.6], ['Portafoglio (5%, incerto)', 5], ['Fermi (0%)', 0]];
+  var EXAMPLES = [
+    { id: 'ex7', label: 'Usata da 7.000 €', price: 7000, age0: 8 },
+    { id: 'ex20', label: 'Nuova da 20.000 €', price: 20000, age0: 0 },
+    { id: 'ex50', label: 'Nuova da 50.000 €', price: 50000, age0: 0 }
+  ];
+
+  /* ---------- Costruzione del form ---------- */
+  function buildForm(){
+    var host = $('form');
+    host.innerHTML = '';
+    GROUPS.forEach(function(g){
+      var d = el('details'); if (g.open) d.setAttribute('open', '');
+      d.appendChild(el('summary', null, g.title));
+      g.fields.forEach(function(f){
+        var w = el('div', { 'class': 'f' + (f.type === 'check' ? ' check' : '') });
+        var id = 'in-' + f.k;
+        if (f.type === 'check'){
+          var lab = el('label', { 'for': id });
+          var cb = el('input', { type: 'checkbox', id: id, 'data-k': f.k });
+          lab.appendChild(cb); lab.appendChild(el('span', null, f.label));
+          w.appendChild(lab);
+        } else {
+          var l = el('label', { 'for': id }, f.label + (f.auto ? '<span class="tag" id="tag-' + f.k + '">suggerito</span>' : ''));
+          w.appendChild(l);
+          var row = el('div', { 'class': 'row' });
+          if (f.type === 'select'){
+            var sel = el('select', { id: id, 'data-k': f.k });
+            f.opts.forEach(function(o){ sel.appendChild(el('option', { value: o[0] }, o[1])); });
+            row.appendChild(sel);
+          } else {
+            if (f.type === 'range'){
+              row.appendChild(el('input', { type: 'range', id: id + '-r', 'data-k': f.k, 'data-kind': 'r', min: f.min, max: f.max, step: f.step, 'aria-label': f.label }));
+            }
+            row.appendChild(el('input', { type: 'number', id: id, 'data-k': f.k, 'data-kind': 'n', min: f.min, max: f.hmax || f.max, step: f.step, inputmode: 'decimal' }));
+            if (f.unit) row.appendChild(el('span', { 'class': 'unit' }, f.unit));
+          }
+          w.appendChild(row);
+        }
+        if (f.chips){
+          var list = f.chips === 'region' ? REGIONS : RNETS;
+          var ch = el('div', { 'class': 'chips', role: 'group', 'aria-label': f.chips === 'region' ? 'Regione' : 'Rendimento' });
+          list.forEach(function(it){
+            var b = el('button', { type: 'button', 'data-chip': f.k, 'data-val': it[1], 'aria-pressed': 'false' }, it[0]);
+            ch.appendChild(b);
+          });
+          w.appendChild(ch);
+        }
+        if (f.help) w.appendChild(el('small', null, f.help));
+        d.appendChild(w);
+      });
+      host.appendChild(d);
+    });
+    host.addEventListener('input', onInput);
+    host.addEventListener('change', onInput);
+    host.addEventListener('click', function(e){
+      var b = e.target.closest('button[data-chip]');
+      if (!b) return;
+      state[b.getAttribute('data-chip')] = parseFloat(b.getAttribute('data-val'));
+      refresh(null);
+    });
+  }
+
+  function onInput(e){
+    var t = e.target, k = t.getAttribute('data-k');
+    if (!k) return;
+    var f = FIELD[k];
+    if (f.type === 'check') state[k] = t.checked;
+    else if (f.type === 'select') state[k] = t.value;
+    else {
+      var v = parseFloat(t.value);
+      if (!isFinite(v)) return;
+      var lo = f.min, hi = f.hmax || f.max;
+      v = Math.min(hi, Math.max(lo, v));
+      state[k] = v;
+    }
+    if (f.auto) dirty[k] = true;
+    refresh(t);
+  }
+
+  function syncInputs(active){
+    GROUPS.forEach(function(g){ g.fields.forEach(function(f){
+      var k = f.k, v = state[k];
+      var n = $('in-' + k); if (!n) return;
+      if (f.type === 'check'){ n.checked = !!v; }
+      else if (f.type === 'select'){ n.value = v; }
+      else {
+        if (n !== active) n.value = (f.step < 1 && ok(v)) ? String(+v.toFixed(3)) : String(v);
+        var r = $('in-' + k + '-r');
+        if (r && r !== active) r.value = Math.min(f.max, Math.max(f.min, v));
+      }
+      if (f.auto){
+        var tg = $('tag-' + k);
+        if (tg){ var mine = !!dirty[k]; tg.textContent = mine ? 'tuo valore' : 'suggerito'; tg.className = 'tag' + (mine ? ' mine' : ''); }
+      }
+    }); });
+    var chips = document.querySelectorAll('button[data-chip]');
+    Array.prototype.forEach.call(chips, function(b){
+      var k = b.getAttribute('data-chip');
+      b.setAttribute('aria-pressed', Math.abs(state[k] - parseFloat(b.getAttribute('data-val'))) < 1e-9 ? 'true' : 'false');
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('button[data-ex]'), function(b){
+      var ex = EXAMPLES.filter(function(x){ return x.id === b.getAttribute('data-ex'); })[0];
+      b.setAttribute('aria-pressed', ex.price === state.price && ex.age0 === state.age0 ? 'true' : 'false');
+    });
+  }
+
+  /* ---------- Salvataggio impostazioni (solo localStorage, sempre in try/catch) ---------- */
+  function save(){
+    try { localStorage.setItem(STORE_KEY, JSON.stringify({ state: state, dirty: dirty })); } catch (e) {}
+  }
+  function load(){
+    try {
+      var raw = localStorage.getItem(STORE_KEY);
+      if (!raw) return;
+      var o = JSON.parse(raw);
+      if (!o || typeof o.state !== 'object') return;
+      Object.keys(DEFAULTS).forEach(function(k){
+        var dv = DEFAULTS[k], v = o.state[k];
+        if (typeof dv === 'number' && typeof v === 'number' && isFinite(v)) state[k] = v;
+        else if (typeof dv === 'boolean' && typeof v === 'boolean') state[k] = v;
+        else if (typeof dv === 'string' && typeof v === 'string') state[k] = v;
+      });
+      if (o.dirty && typeof o.dirty === 'object') AUTO_KEYS.forEach(function(k){ if (o.dirty[k]) dirty[k] = true; });
+      if (!CURVES[state.scen]) state.scen = 'prudente';
+    } catch (e) {}
+  }
+
+  /* ---------- Grafici ---------- */
+  function niceTicks(min, max, n){
+    var span = (max - min) || 1;
+    var step = Math.pow(10, Math.floor(Math.log10(span / n)));
+    var err = span / n / step;
+    if (err >= 7.5) step *= 10; else if (err >= 3.5) step *= 5; else if (err >= 1.5) step *= 2;
+    var t = [];
+    for (var v = Math.ceil(min / step - 1e-9) * step; v <= max + 1e-9; v += step) t.push(+v.toFixed(10));
+    return t;
+  }
+
+  function lineChart(hostId, cfg){
+    var host = $(hostId); host.innerHTML = '';
+    var W = 640, H = cfg.height || 300, m = { l: 62, r: 36, t: 14, b: 42 };
+    var svg = S('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': cfg.label });
+    var all = [];
+    cfg.series.forEach(function(s){ s.values.forEach(function(v){ if (ok(v)) all.push(v); }); });
+    if (!all.length){ host.appendChild(el('p', { 'class': 'cap' }, 'Nessun dato da mostrare con queste impostazioni.')); return; }
+    var lo = Math.min.apply(null, all), hi = Math.max.apply(null, all);
+    var ymin = Math.min(0, lo), ymax = hi + (hi - ymin) * 0.06;
+    if (ymax === ymin) ymax = ymin + 1;
+    var xs = cfg.xs, xmin = xs[0], xmax = xs[xs.length - 1];
+    function X(x){ return m.l + (x - xmin) / ((xmax - xmin) || 1) * (W - m.l - m.r); }
+    function Y(y){ return H - m.b - (y - ymin) / (ymax - ymin) * (H - m.t - m.b); }
+    niceTicks(ymin, ymax, 5).forEach(function(t){
+      svg.appendChild(S('line', { x1: m.l, x2: W - m.r, y1: Y(t), y2: Y(t), 'class': t === 0 ? 'zero' : 'grid' }));
+      svg.appendChild(S('text', { x: m.l - 8, y: Y(t) + 4, 'text-anchor': 'end', 'class': 'tk' }, cfg.yFmt(t)));
+    });
+    var xt = cfg.xTicks || xs;
+    var skip = Math.ceil(xt.length / 8);
+    xt.forEach(function(x, i){
+      if (i % skip) return;
+      svg.appendChild(S('line', { x1: X(x), x2: X(x), y1: H - m.b, y2: H - m.b + 4, 'class': 'axis' }));
+      svg.appendChild(S('text', { x: X(x), y: H - m.b + 17, 'text-anchor': 'middle', 'class': 'tk' }, cfg.xFmt(x)));
+    });
+    svg.appendChild(S('line', { x1: m.l, x2: W - m.r, y1: H - m.b, y2: H - m.b, 'class': 'axis' }));
+    svg.appendChild(S('text', { x: (m.l + W - m.r) / 2, y: H - 6, 'text-anchor': 'middle', 'class': 'ttl' }, cfg.xTitle));
+    svg.appendChild(S('text', { x: 14, y: (m.t + H - m.b) / 2, 'text-anchor': 'middle', 'class': 'ttl', transform: 'rotate(-90 14 ' + ((m.t + H - m.b) / 2) + ')' }, cfg.yTitle));
+    (cfg.vlines || []).forEach(function(v){
+      if (v.x < xmin || v.x > xmax) return;
+      svg.appendChild(S('line', { x1: X(v.x), x2: X(v.x), y1: m.t, y2: H - m.b, 'class': v.now ? 'vl vl-now' : 'vl' }));
+      svg.appendChild(S('text', { x: X(v.x) + 4, y: m.t + (v.now ? 22 : 10), 'class': v.now ? 'vl-tn' : 'vl-t' }, v.label));
+    });
+    var ends = [];
+    cfg.series.forEach(function(s){
+      var d = '', pen = false, lastI = -1;
+      s.values.forEach(function(v, i){
+        if (!ok(v)){ pen = false; return; }
+        d += (pen ? 'L' : 'M') + X(xs[i]).toFixed(1) + ' ' + Y(v).toFixed(1) + ' ';
+        pen = true; lastI = i;
+      });
+      if (!d) return;
+      svg.appendChild(S('path', { d: d, 'class': 'ln ln-' + s.key }));
+      ends.push({ key: s.key, x: X(xs[lastI]), y: Y(s.values[lastI]) });
+    });
+    ends.sort(function(a, b){ return a.y - b.y; });
+    for (var i = 1; i < ends.length; i++) if (ends[i].y - ends[i - 1].y < 13) ends[i].y = ends[i - 1].y + 13;
+    ends.forEach(function(e){ svg.appendChild(S('text', { x: e.x + 7, y: e.y + 4, 'class': 'el el-' + e.key }, e.key)); });
+    host.appendChild(svg);
+    var lg = el('div', { 'class': 'legend' });
+    cfg.series.forEach(function(s){ lg.appendChild(el('span', null, '<i class="sl sl-' + s.key + '"></i>' + s.key + ' ' + ALT_NAMES[s.key])); });
+    host.appendChild(lg);
+    var det = el('details', { 'class': 'vals' });
+    det.appendChild(el('summary', null, 'Mostra i valori in tabella'));
+    var tb = '<div class="scroll"><table><thead><tr><th>' + cfg.xTitle + '</th>' + cfg.series.map(function(s){ return '<th>' + s.key + '</th>'; }).join('') + '</tr></thead><tbody>';
+    xs.forEach(function(x, i){
+      if (cfg.tableStep && i % cfg.tableStep) return;
+      tb += '<tr><td>' + cfg.xFmt(x) + '</td>' + cfg.series.map(function(s){ return '<td class="num">' + cfg.yFmt(s.values[i]) + '</td>'; }).join('') + '</tr>';
+    });
+    tb += '</tbody></table></div>';
+    det.appendChild(el('div', null, tb));
+    host.appendChild(det);
+  }
+
+  var CAT_LABELS = [['auto', 'Auto: svalutazione e finanziamento'], ['ins', 'Assicurazione e bollo'], ['man', 'Manutenzione'], ['fuel', 'Carburante'], ['opp', 'Costo del denaro']];
+  function stackedBars(hostId, res){
+    var host = $(hostId); host.innerHTML = '';
+    var alts = res.alts.filter(function(a){ return a.available; });
+    var W = 640, H = 330, m = { l: 62, r: 12, t: 28, b: 56 };
+    var svg = S('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': 'Costo netto totale per formula, diviso per voce' });
+    var totals = alts.map(function(a){ var b = a.breakdown; return b.auto + b.ins + b.bol + b.man + b.fuel + b.opp; });
+    var ymax = Math.max.apply(null, totals) * 1.08 || 1;
+    function Y(v){ return H - m.b - v / ymax * (H - m.t - m.b); }
+    niceTicks(0, ymax, 5).forEach(function(t){
+      svg.appendChild(S('line', { x1: m.l, x2: W - m.r, y1: Y(t), y2: Y(t), 'class': t === 0 ? 'zero' : 'grid' }));
+      svg.appendChild(S('text', { x: m.l - 8, y: Y(t) + 4, 'text-anchor': 'end', 'class': 'tk' }, nf0.format(t)));
+    });
+    var slot = (W - m.l - m.r) / alts.length, bw = Math.min(70, slot * 0.6);
+    alts.forEach(function(a, i){
+      var cx = m.l + slot * i + slot / 2, y = 0, b = a.breakdown;
+      var segs = [['auto', b.auto], ['ins', b.ins + b.bol], ['man', b.man], ['fuel', b.fuel], ['opp', b.opp]];
+      segs.forEach(function(sg){
+        var v = Math.max(0, sg[1]); if (v <= 0) return;
+        var r = S('rect', { x: cx - bw / 2, width: bw, y: Y(y + v), height: Math.max(0, Y(y) - Y(y + v)), 'class': 'seg-' + sg[0] });
+        r.appendChild(S('title', null, a.label + ' · ' + CAT_LABELS.filter(function(c){ return c[0] === sg[0]; })[0][1] + ': ' + E0(sg[1])));
+        svg.appendChild(r);
+        y += v;
+      });
+      svg.appendChild(S('text', { x: cx, y: Y(y) - 7, 'text-anchor': 'middle', 'class': 'bar-tot' }, E0(y)));
+      svg.appendChild(S('text', { x: cx, y: H - m.b + 17, 'text-anchor': 'middle', 'class': 'bar-lbl' }, a.key + ' · ' + a.label.split(' ')[0]));
+      if (a.key === 'E') svg.appendChild(S('text', { x: cx, y: H - m.b + 32, 'text-anchor': 'middle', 'class': 'tk' }, 'altra auto'));
+      if (res.best && a.key === res.best.key) svg.appendChild(S('text', { x: cx, y: H - m.b + 32, 'text-anchor': 'middle', 'class': 'tk' }, 'più conveniente'));
+    });
+    host.appendChild(svg);
+    var lg = el('div', { 'class': 'legend' });
+    CAT_LABELS.forEach(function(c){ lg.appendChild(el('span', null, '<i class="sw sw-' + c[0] + '"></i>' + c[1])); });
+    host.appendChild(lg);
+  }
+
+  /* ---------- Quadrante ---------- */
+  function buildDial(){
+    var svg = $('dial');
+    svg.innerHTML = '';
+    var cx = 140, cy = 140, r = 110;
+    svg.appendChild(S('path', { d: 'M 30 140 A 110 110 0 0 1 250 140', 'class': 'dial-track' }));
+    svg.appendChild(S('path', { d: 'M 30 140 A 110 110 0 0 1 250 140', 'class': 'dial-fill', id: 'dial-fill', pathLength: 100, 'stroke-dasharray': '0 100' }));
+    for (var i = 0; i <= 10; i++){
+      var a = Math.PI - i / 10 * Math.PI, r1 = r - 14, r2 = r - (i % 5 === 0 ? 26 : 21);
+      svg.appendChild(S('line', { x1: cx + r1 * Math.cos(a), y1: cy - r1 * Math.sin(a), x2: cx + r2 * Math.cos(a), y2: cy - r2 * Math.sin(a), 'class': 'dial-tick' }));
+    }
+    var g = S('g', { id: 'needle', transform: 'rotate(-90 140 140)' });
+    g.appendChild(S('line', { x1: 140, y1: 140, x2: 140, y2: 52, 'class': 'needle' }));
+    svg.appendChild(g);
+    svg.appendChild(S('circle', { cx: 140, cy: 140, r: 8, 'class': 'hub' }));
+    svg.appendChild(S('text', { x: 30, y: 160, 'text-anchor': 'middle', 'class': 'dial-end' }, '0 €'));
+    svg.appendChild(S('text', { x: 250, y: 160, 'text-anchor': 'middle', 'class': 'dial-end', id: 'dial-max' }, ''));
+    svg.appendChild(S('text', { x: 140, y: 176, 'text-anchor': 'middle', 'class': 'dial-num', id: 'dial-num' }, ''));
+  }
+  function updateDial(res){
+    var ranking = res.ranking, best = res.best, worst = ranking[ranking.length - 1];
+    var frac = worst.perMonth > 0 ? Math.min(1, Math.max(0, best.perMonth / worst.perMonth)) : 0;
+    $('dial-fill').setAttribute('stroke-dasharray', (frac * 100).toFixed(1) + ' 100');
+    $('needle').setAttribute('transform', 'rotate(' + (-90 + frac * 180).toFixed(1) + ' 140 140)');
+    $('dial-max').textContent = E0(worst.perMonth);
+    $('dial-num').textContent = E0(best.perMonth) + '/mese';
+    $('dial-cap').textContent = 'L\'ago è la formula più economica (' + best.label.toLowerCase() + '); il fondo scala è la più cara (' + worst.label.toLowerCase() + '). Ago vicino al fondo scala: le formule costano quasi lo stesso.';
+    $('dial').setAttribute('aria-label', 'Formula più economica: ' + best.label + ', circa ' + E0(best.perMonth) + ' al mese, contro ' + E0(worst.perMonth) + ' della più cara.');
+  }
+
+  /* ---------- Verdetto e tabella ---------- */
+  function verdict(res){
+    var b = res.best, s = res.second, H = state.H;
+    var html = 'Su <b>' + H + ' ' + (H === 1 ? 'anno' : 'anni') + '</b> la formula più economica è <b>' + b.label.toLowerCase() + '</b>: circa <b>' + E0(b.perMonth) + ' al mese</b> tutto compreso';
+    if (s) html += ', ' + E0(s.perMonth - b.perMonth) + ' al mese meno di ' + s.label.toLowerCase() + '.';
+    else html += '.';
+    var extra = [];
+    if (s && (s.perMonth - b.perMonth) / b.perMonth < 0.05) extra.push('Le prime due sono quasi alla pari (meno del 5% di differenza): decidono flessibilità e preferenze, non i numeri.');
+    var B = res.alts[1];
+    if (B.available && B.extra.irr != null){
+      var irr = B.extra.irr * 100, r = state.rNet;
+      var ip = Math.floor(Math.abs(irr)), art = (ip === 8 || ip === 11 || (ip >= 80 && ip < 90)) ? 'l\'' : 'il ';
+      var ipr = Math.floor(Math.abs(r)), artr = (ipr === 8 || ipr === 11) ? 'dell\'' : 'del ';
+      extra.push('Il finanziamento, tolto lo sconto, costa ' + art + '<b>' + P1(irr) + '</b> annuo effettivo: ' + (irr > r ? 'più' : 'meno') + ' ' + artr + P1(r) + ' netto che renderebbero i soldi non spesi.');
+    }
+    if (res.used && res.used.available){
+      var diff = b.perMonth - res.used.perMonth;
+      if (diff > 0) extra.push('Con la stessa auto di ' + res.used.extra.ageU + ' anni spenderesti circa ' + E0(diff) + ' al mese in meno (senza contare passaggio di proprietà e rischio guasti).');
+      else extra.push('Con la stessa auto più vecchia non risparmieresti: costa circa ' + E0(-diff) + ' al mese in più.');
+    }
+    if (state.age0 > 0) extra.push('Leasing e noleggio non sono confrontati: valgono solo per auto nuove.');
+    $('verdict').innerHTML = html + (extra.length ? '<small>' + extra.join(' ') + '</small>' : '');
+  }
+
+  function compareTable(res, hostId){
+    var alts = res.alts.filter(function(a){ return a.available; });
+    var bestKey = res.best.key;
+    var rate = { A: null, B: res.alts[1].available ? res.alts[1].extra.rata : null, C: state.canoneL, D: state.canoneN, E: null };
+    var rows = [
+      ['Esborso iniziale', function(a){ return E0(a.init); }],
+      ['Rata o canone al mese', function(a){ return rate[a.key] ? E0(rate[a.key]) : '—'; }],
+      ['Pagato in totale nel periodo', function(a){ return E0(a.total); }],
+      ['Valore dell\'auto a fine periodo', function(a){ return a.resid > 0 ? E0(a.resid) : 'non è tua'; }],
+      ['Costo netto (pagato meno valore dell\'auto)', function(a){ return E0(a.net); }],
+      ['Costo con il costo del denaro', function(a){ return E0(a.fv); }],
+      ['Equivalente al mese', function(a){ return '<b>' + E0(a.perMonth) + '</b>'; }],
+      ['Per chilometro', function(a){ return ok(a.perKm) ? nf2.format(a.perKm) + ' €' : '—'; }]
+    ];
+    var h = '<div class="scroll"><table><thead><tr><th></th>';
+    alts.forEach(function(a){
+      h += '<th class="' + (a.key === bestKey ? 'best' : '') + '"><span class="chip ch-' + a.key + '">' + a.key + '</span>' + a.label + (a.key === 'E' ? '<span class="badge" style="color:var(--muted)">altra auto</span>' : '') + (a.key === bestKey ? '<span class="badge">più conveniente</span>' : '') + '</th>';
+    });
+    h += '</tr></thead><tbody>';
+    rows.forEach(function(r){
+      h += '<tr><td>' + r[0] + '</td>';
+      alts.forEach(function(a){ h += '<td class="num ' + (a.key === bestKey ? 'best' : '') + '">' + r[1](a) + '</td>'; });
+      h += '</tr>';
+    });
+    h += '</tbody></table></div>';
+    $(hostId).innerHTML = h;
+    var notes = [];
+    var B = res.alts[1];
+    if (B.available && B.extra.finanziato > 0){
+      notes.push('Finanziamento: rata ' + E0(B.extra.rata) + ' su ' + E0(B.extra.finanziato) + ' finanziati. Costo del credito (interessi, spese e penale, meno rimborsi) ' + E0(B.extra.costoCredito) + '.' + (B.extra.mesiPagati < state.nB ? ' Estinzione al mese ' + B.extra.mesiPagati + (B.extra.fee > 0 ? ' con indennizzo di ' + E0(B.extra.fee) : ' senza indennizzo') + '.' : ''));
+      if (B.extra.clausola > 0) notes.push('La clausola sullo sconto ti fa restituire ' + E0(B.extra.clausola) + ' perché estingui prima del mese ' + state.minMonths + '.');
+    }
+    var C = res.alts[2], D = res.alts[3];
+    if (C.available && C.extra.notes) C.extra.notes.forEach(function(n){ notes.push('Leasing: ' + n); });
+    if (D.available){
+      if (D.extra.penaleKm > 0) notes.push('Noleggio: i km oltre il pacchetto costano ' + E0(D.extra.penaleKm) + ' in penali nel periodo.');
+      D.extra.notes.forEach(function(n){ notes.push('Noleggio: ' + n); });
+    }
+    if (res.used && res.used.available) notes.push('Usato: stessa auto di ' + res.used.extra.ageU + ' anni a circa ' + E0(res.used.extra.prezzoUsato) + '. Non sono contati passaggio di proprietà, garanzia e rischio guasti.');
+    $('cmp-notes').innerHTML = notes.map(function(n){ return '<li>' + n + '</li>'; }).join('');
+  }
+
+  /* ---------- Sensibilità e simulazione ---------- */
+  function heatmap(hostId){
+    var scens = ['prudente', 'centrale', 'ottimistico'], kms = [8000, 12000, 15000, 20000, 30000];
+    var g = winnerGrid(state, scens, kms);
+    var h = '<div class="scroll"><table class="heat"><thead><tr><th>Svalutazione \\ km/anno</th>' + kms.map(function(k){ return '<th>' + N0(k) + '</th>'; }).join('') + '</tr></thead><tbody>';
+    scens.forEach(function(sc, i){
+      h += '<tr><td>' + sc.charAt(0).toUpperCase() + sc.slice(1) + '</td>';
+      g[i].forEach(function(c){
+        h += '<td title="' + ALT_NAMES[c.key] + ', ' + E0(c.gap) + ' al mese meno della seconda"><span class="chip ch-' + c.key + '">' + c.key + '</span><small>−' + N0(c.gap) + ' €/mese</small></td>';
+      });
+      h += '</tr>';
+    });
+    h += '</tbody></table></div><p class="cap">Lettera = formula più economica. Sotto, di quanto batte la seconda. Leasing e noleggio mantengono il preventivo che hai inserito.</p>';
+    $(hostId).innerHTML = h;
+  }
+
+  var mcTimer = null;
+  function monte(hostId){
+    var host = $(hostId);
+    host.innerHTML = '<p class="cap">Calcolo in corso…</p>';
+    clearTimeout(mcTimer);
+    mcTimer = setTimeout(function(){
+      var mc = monteCarlo(state, 300, 20261004);
+      var keys = ALT_KEYS.filter(function(k){ return mc[k]; });
+      var lo = Math.min.apply(null, keys.map(function(k){ return mc[k].p10; }));
+      var hi = Math.max.apply(null, keys.map(function(k){ return mc[k].p90; }));
+      var span = (hi - lo) || 1;
+      var h = '<div class="mc">';
+      keys.forEach(function(k){
+        var m = mc[k];
+        var l = (m.p10 - lo) / span * 100, w = Math.max(1.5, (m.p90 - m.p10) / span * 100), md = (m.p50 - lo) / span * 100;
+        h += '<div class="mc-row mc-' + k + '"><div class="mc-name"><span class="chip ch-' + k + '">' + k + '</span>' + ALT_NAMES[k] + '</div>' +
+          '<div class="mc-track" role="img" aria-label="' + ALT_NAMES[k] + ': da ' + E0(m.p10) + ' a ' + E0(m.p90) + ' al mese"><span class="mc-range" style="left:' + l.toFixed(1) + '%;width:' + w.toFixed(1) + '%"></span><span class="mc-med" style="left:calc(' + md.toFixed(1) + '% - 1px)"></span></div>' +
+          '<div class="mc-txt">Da ' + E0(m.p10) + ' a ' + E0(m.p90) + ' al mese, mediana ' + E0(m.p50) + (k === 'E' ? ' (altra auto)' : ' · la più economica nel ' + Math.round(m.win * 100) + '% dei casi') + '</div></div>';
+      });
+      h += '</div><p class="cap">300 scenari: svalutazione tra prudente e ottimistica, carburante ±15%, km ±12%, rendimento del denaro tra 0% e 5%. Barra = dal 10° al 90° percentile, tacca = mediana.</p>';
+      host.innerHTML = h;
+    }, 250);
+  }
+
+  /* ---------- Fonti ---------- */
+  var SOURCES = [
+    ['TAEG medio del credito al consumo (nuove erogazioni)', '10,38% a luglio 2026', 'Banca d\'Italia, riportato da Facile.it', 'https://www.facile.it/prestiti/news/tassi-prestiti-fine-settembre-2026.html', 'ver'],
+    ['Esempio di finanziamento: TAN e TAEG', 'TAN 7,06%, TAEG 8,29% su 10.000 €', 'Facile.it, offerte di luglio 2026', 'https://www.facile.it/prestiti/news/offerte-prestiti-personali-luglio-2026.html', 'es'],
+    ['TAN di partenza e istruttoria', '7,25% e circa 1,2% del prezzo (150–600 €)', 'Esempio dal video di Davide Lavera, coerente con il TAEG sopra', '', 'stima'],
+    ['Sconti del concessionario', '3% in contanti, 11% con finanziamento', 'Esempio dal video (1.000 e 4.000 € su 35.000 €). Non è un dato di mercato: usa i tuoi preventivi', '', 'stima'],
+    ['Indennizzo per estinzione anticipata', 'Massimo 1% (0,5% se restano 12 mesi o meno); zero se il debito residuo estinto è fino a 10.000 €', 'Art. 125-sexies TUB', 'https://www.brocardi.it/testo-unico-bancario/titolo-vi/capo-ii/art125sexies.html', 'ver'],
+    ['Rimborso proporzionale di tutti i costi non maturati', 'Dal 10 gennaio 2026', 'Money.it', 'https://www.money.it/estinzione-anticipata-prestito-cosa-cambia-2026-quali-costi-puoi-farti-rimborsare', 'ver'],
+    ['Regresso del finanziatore sul concessionario', 'Possibile per la quota di provvigione', 'ECNews, art. 125-sexies', 'https://www.ecnews.it/legale/diritto-civile/diritto-bancario/credito-al-consumo-e-rimborso-anticipato-del-finanziamento-art-125-sexies-tub/', 'ver'],
+    ['RC auto, prezzo medio effettivo', '422 € nel 2° trimestre 2026', 'IVASS, riportato da ANSA (24/09/2026)', 'https://www.ilnordest.it/italia-ed-esteri/ivass-prezzo-medio-rc-auto-a-422-euro-1-6-in-calo-sul-trimestre-yvduk1be', 'ver'],
+    ['Kasko e furto', '1,4% del valore all\'anno fino a 2 anni, 1,0% fino a 6, poi 0', 'Stima di questo strumento', '', 'stima'],
+    ['Bollo', '2,58 €/kW fino a 100 kW, 3,87 € oltre; superbollo 20 €/kW sopra 185 kW, ridotto con l\'età', 'Il Giornale Digitale e AutoScout24', 'https://www.ilgiornaledigitale.it/bollo-auto-calcolo-pagamento-80584.html', 'ver'],
+    ['Bollo regionale', 'Emilia-Romagna +10%; Campania e Abruzzo 3,12 €/kW', 'BusinessOnline e Il Giornale Digitale', 'https://www.businessonline.it/news/bollo-auto-2026-chi-deve-pagare-a-febbraio-marzo-e-aprile-e-quanto-limporto-dopo-entrata-in-vigore-novit_n82225.html', 'ver'],
+    ['Carburanti, media self', 'Benzina 2,111 €/l, gasolio 2,316 €/l (30/09/2026)', 'MIMIT, riportato da Teleborsa', 'https://www.borsaitaliana.it/borsa/notizie/teleborsa/economia/carburanti-mimit-in-calo-prezzo-medio-self-benzina-e-gasolio-51_2026-09-30_TLB.html?lang=it', 'ver'],
+    ['Consumi per alimentazione', '6,0 / 5,0 / 4,6 l/100 km, scalati con prezzo ed età', 'Stima di questo strumento', '', 'stima'],
+    ['Manutenzione', '400 € + 1% del prezzo, per auto di 3–6 anni; moltiplicata per l\'età', 'Stima di questo strumento', '', 'stima'],
+    ['Svalutazione, scenario prudente', 'Valore residuo 75%, 60%, 50%, 37%, 29%, 25% a 1–6 anni', 'Smartworld; oltre 6 anni è una stima', 'https://www.smartworld.it/mobilita/svalutazione-auto-come-calcolare-perdita-valore.html', 'ver'],
+    ['Svalutazione, scenari centrale e ottimistico', 'Perdita minore (ad esempio circa 50% in 5 anni)', 'Le fonti discordano (BusinessOnline); curve intermedie stimate', 'https://www.businessonline.it/news/quali-sono-le-auto-nuove-che-si-svalutano-meno-e-non-perdono-tanto-valore-quando-si-vogliono-rivendere_n77973.html', 'stima'],
+    ['Rendimento alternativo', 'BOT 12 mesi: 2,967% lordo all\'asta del 9 settembre 2026, tassato al 12,5%: circa 2,6% netto. Il 5% è un\'ipotesi incerta', 'QuiFinanza', 'https://quifinanza.it/economia/finanza/bot-12-mesi-rendimento-guadagno-netto-1000-euro/1014642/', 'ver'],
+    ['Inflazione dei costi', '2% all\'anno', 'Stima di questo strumento', '', 'stima'],
+    ['Noleggio: cosa include il canone', 'RC, manutenzione, assistenza, spesso bollo. Esclusi carburante, multe, danni con colpa', 'QuotidianoMotori', 'https://www.quotidianomotori.com/automobili/noleggio-lungo-termine-per-privati/', 'ver'],
+    ['Noleggio: penale km e franchigia', '0,10 €/km, franchigia 100–500 €', 'Motor1, valori d\'esempio', 'https://it.motor1.com/news/236853/noleggio-lungo-termine-da-sapere/', 'es'],
+    ['Canone del noleggio', 'Circa 1,45% del prezzo al mese a 36 mesi, con anticipo dell\'8%', 'Stima: non ho trovato medie pubbliche affidabili. Usa il tuo preventivo', '', 'stima'],
+    ['Leasing: bollo a carico del cliente', 'Sì, di solito', 'Money.it', 'https://www.money.it/Noleggio-a-lungo-termine-conviene-differenze-acquisto-privati', 'ver'],
+    ['Canone del leasing', 'Anticipo 15%, riscatto pari al valore residuo centrale, tasso 8,5%', 'Stima di questo strumento', '', 'stima']
+  ];
+  var TAGS = { ver: ['ver', 'verificato'], stima: ['stima', 'stima'], es: ['es', 'esempio'] };
+  function buildSources(){
+    var h = '<div class="scroll"><table class="src"><thead><tr><th>Dato</th><th>Valore</th><th>Fonte</th><th>Stato</th></tr></thead><tbody>';
+    SOURCES.forEach(function(r){
+      var src = r[3] ? '<a href="' + r[3] + '" target="_blank" rel="noopener noreferrer">' + r[2] + '</a>' : r[2];
+      h += '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + src + '</td><td><span class="tg ' + TAGS[r[4]][0] + '">' + TAGS[r[4]][1] + '</span></td></tr>';
+    });
+    h += '</tbody></table></div><p class="cap">Ricerca del 4 ottobre 2026. Le fonti sono riassunte con parole mie. «Stima» indica una sintesi o un\'ipotesi di questo strumento.</p>';
+    $('sources').innerHTML = h;
+  }
+
+  /* ---------- Rendering generale ---------- */
+  function render(){
+    var res = computeAll(state);
+    lastRes = res;
+    updateDial(res);
+    verdict(res);
+    compareTable(res, 'cmp');
+    stackedBars('stack', res);
+
+    var hs = [3, 4, 5, 6, 7, 8, 9, 10];
+    var sh = sweepH(state, hs);
+    lineChart('ch-h', {
+      label: 'Costo equivalente al mese al variare degli anni di possesso',
+      xs: hs, xFmt: function(x){ return x + ' anni'; }, xTitle: 'Anni di possesso', yTitle: '€ al mese', yFmt: function(v){ return ok(v) ? nf0.format(Math.round(v)) : '—'; },
+      series: ALT_KEYS.filter(function(k){ return sh[k].some(ok) && (k !== 'E' || state.useE); }).map(function(k){ return { key: k, values: sh[k] }; }),
+      vlines: [{ x: state.H, label: 'ora', now: true }]
+    });
+
+    var prices = []; for (var x = 5000; x <= 80000; x += 2500) prices.push(x);
+    var sp = sweepPrice(state, dirty, prices);
+    lineChart('ch-p', {
+      label: 'Costo equivalente al mese al variare del prezzo dell\'auto',
+      xs: prices, xTicks: [5000, 10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000], xFmt: function(v){ return nf0.format(v / 1000) + 'k'; }, xTitle: 'Prezzo dell\'auto (€)', yTitle: '€ al mese',
+      yFmt: function(v){ return ok(v) ? nf0.format(Math.round(v)) : '—'; }, tableStep: 2,
+      series: ALT_KEYS.filter(function(k){ return sp[k].some(ok) && (k !== 'E' || state.useE); }).map(function(k){ return { key: k, values: sp[k] }; }),
+      vlines: [{ x: 7000, label: '7k' }, { x: 20000, label: '20k' }, { x: 50000, label: '50k' }, { x: Math.min(80000, Math.max(5000, state.price)), label: 'ora', now: true }]
+    });
+
+    var ec = earlyCurve(state), B = res.alts[1];
+    var lineEarly = [{ key: 'B', values: ec.map(function(o){ return o.saving; }) }];
+    lineChart('ch-e', {
+      label: 'Risparmio del finanziamento rispetto ai contanti, in base al mese di estinzione',
+      xs: ec.map(function(o){ return o.N; }), xFmt: function(v){ return v + ' m'; }, xTitle: 'Mese in cui estingui il finanziamento', yTitle: '€ risparmiati vs contanti',
+      yFmt: function(v){ return ok(v) ? nf0.format(Math.round(v)) : '—'; }, tableStep: 3,
+      series: lineEarly, vlines: state.earlyN > 0 ? [{ x: state.earlyN, label: 'scelta', now: true }] : []
+    });
+    var best = ec.reduce(function(a, o){ return o.saving > a.saving ? o : a; }, ec[0]);
+    var jump = false;
+    for (var q = 1; q < ec.length; q++) if (ec[q].saving > ec[q - 1].saving + 1) jump = true;
+    $('early-cap').textContent = best.saving > 0
+      ? 'Con questi dati il finanziamento batte i contanti se estingui entro circa il mese ' + (ec.filter(function(o){ return o.saving > 0; }).pop().N) + '; il massimo risparmio (' + E0(best.saving) + ') si ha al mese ' + best.N + '. Sopra lo zero conviene il finanziamento.'
+      : 'Con questi dati il finanziamento non batte i contanti in nessun mese: lo sconto extra non basta a pagare il costo del credito. Prova ad alzare lo sconto con finanziamento.';
+    if (jump) $('early-cap').textContent += ' Lo scalino che risale è la soglia dei 10.000 € di debito residuo: sotto, l\'indennizzo non è dovuto.';
+
+    heatmap('heat');
+    monte('mc');
+    syncInputs(document.activeElement);
+  }
+
+  var raf = 0;
+  function refresh(active){
+    applyAuto(state, dirty);
+    syncInputs(active);
+    save();
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(function(){ try { render(); } catch (err) { $('verdict').textContent = 'Errore nel calcolo: controlla i valori inseriti.'; if (window.console) console.error(err); } });
+  }
+
+  function init(){
+    load();
+    buildForm();
+    buildDial();
+    buildSources();
+    var ex = $('examples');
+    EXAMPLES.forEach(function(e){
+      var b = el('button', { type: 'button', 'data-ex': e.id, 'aria-pressed': 'false' }, e.label);
+      b.addEventListener('click', function(){
+        state.price = e.price; state.age0 = e.age0; dirty = {};
+        refresh(null);
+      });
+      ex.appendChild(b);
+    });
+    $('reset-auto').addEventListener('click', function(){ dirty = {}; refresh(null); });
+    $('reset-all').addEventListener('click', function(){ state = Object.assign({}, DEFAULTS); dirty = {}; refresh(null); });
+    $('theme-toggle').addEventListener('click', function(){
+      var root = document.documentElement;
+      var cur = root.getAttribute('data-theme');
+      var isDark = cur ? cur === 'dark' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    });
+    new MutationObserver(function(){ if (lastRes) render(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    if (window.matchMedia){
+      var mq = window.matchMedia('(prefers-color-scheme: dark)');
+      var h = function(){ if (lastRes) render(); };
+      if (mq.addEventListener) mq.addEventListener('change', h); else if (mq.addListener) mq.addListener(h);
+    }
+    refresh(null);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+/*UI-END*/
+
+</script>
+</body>
+</html>
