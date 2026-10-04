@@ -20,6 +20,14 @@ window.HUB = {
       file: "anticipo-o-mutuo.html"
     },
     {
+      id: "casa-comprare-o-affittare",
+      name: "Comprare casa o affittare?",
+      category: "immobiliare",
+      description: "Dopo quanti anni conviene comprare con il mutuo invece di affittare e investire la differenza, con costi, imposte e simulazione di mercato.",
+      tags: ["casa", "mutuo", "affitto", "ETF", "prima casa"],
+      file: "casa-comprare-o-affittare.html"
+    },
+    {
       id: "quadrante-liberta",
       name: "Il quadrante della libertà",
       category: "pianificazione",
