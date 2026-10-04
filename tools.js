@@ -50,6 +50,14 @@ window.HUB = {
       description: "Prova un piano di investimento: dividi tra azioni, obbligazioni e liquidità, confronta portafogli e vedi con che probabilità raggiungi il tuo obiettivo.",
       tags: ["investimenti", "portafoglio", "ETF", "simulazione", "costi", "tasse"],
       file: "laboratorio-investimenti.html"
+    },
+    {
+      id: "piano-accumulo-mensile",
+      name: "Piano d'accumulo mese per mese",
+      category: "pianificazione",
+      description: "Simula mese per mese come crescono liquidità, PAC e fondo obiettivo, e prova cosa cambia versando di più, prima o più a lungo.",
+      tags: ["PAC", "accumulo", "cuscinetto", "ETF", "simulazione", "rendimento composto"],
+      file: "piano-investimenti.html"
     }
   ]
 };
