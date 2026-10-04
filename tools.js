@@ -34,6 +34,14 @@ window.HUB = {
       description: "Quando puoi smettere di lavorare, in euro: Italia (Milano), Svizzera (Ginevra, Losanna) o Italia poi Svizzera, con pensioni, figli e simulazioni di mercato.",
       tags: ["libertà finanziaria", "pensione", "Italia", "Svizzera"],
       file: "quadrante-liberta.html"
+    },
+    {
+      id: "capitale-umano-portafoglio",
+      name: "Capitale umano e portafoglio",
+      category: "pianificazione",
+      description: "Calcola quanto vale oggi il tuo reddito futuro e quante azioni puoi permetterti in base al tipo di lavoro, con la spiegazione della formula di Merton.",
+      tags: ["capitale umano", "asset allocation", "azioni", "pensione", "Merton"],
+      file: "capitale-umano-portafoglio.html"
     }
   ]
 };
