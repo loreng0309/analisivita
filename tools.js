@@ -7,7 +7,8 @@ window.HUB = {
 
   categories: [
     { id: "immobiliare", name: "Immobiliare e finanza personale" },
-    { id: "pianificazione", name: "Pianificazione finanziaria" }
+    { id: "pianificazione", name: "Pianificazione finanziaria" },
+    { id: "mobilita", name: "Auto e mobilità" }
   ],
 
   tools: [
@@ -58,6 +59,14 @@ window.HUB = {
       description: "Simula mese per mese come crescono liquidità, PAC e fondo obiettivo, e prova cosa cambia versando di più, prima o più a lungo.",
       tags: ["PAC", "accumulo", "cuscinetto", "ETF", "simulazione", "rendimento composto"],
       file: "piano-investimenti.html"
+    },
+    {
+      id: "auto-costo-reale",
+      name: "Auto: il costo vero su 3–10 anni",
+      category: "mobilita",
+      description: "Confronta contanti, finanziamento, leasing e noleggio di un'auto, con svalutazione, costi di possesso, sconto da finanziamento e costo del denaro.",
+      tags: ["auto", "finanziamento", "leasing", "noleggio", "svalutazione", "costo totale"],
+      file: "auto-costo-reale.html"
     }
   ]
 };
