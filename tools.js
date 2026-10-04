@@ -6,7 +6,8 @@ window.HUB = {
   subtitle: "calcolatori e dashboard",
 
   categories: [
-    { id: "immobiliare", name: "Immobiliare e finanza personale" }
+    { id: "immobiliare", name: "Immobiliare e finanza personale" },
+    { id: "pianificazione", name: "Pianificazione finanziaria" }
   ],
 
   tools: [
