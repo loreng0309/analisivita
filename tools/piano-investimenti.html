@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Piano d'investimento: il laboratorio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf6ec; --panel:#ffffff; --panel2:#f4edda; --ink:#10193a; --muted:#566080;
+  --gold:#a8791a; --gold2:#c99a2e; --goldsoft:rgba(201,154,46,.14); --line:#e3d9bf;
+  --accent:#1c2f6b; --pos:#1e7a4c; --neg:#b3382c; --warn:#9a5b00;
+  --c-eq:#1c2f6b; --c-buf:#c99a2e; --c-fund:#2a8a85; --c-wait:#8892b0; --c-in:#10193a;
+  --shadow:0 1px 2px rgba(16,25,58,.06),0 6px 18px rgba(16,25,58,.06);
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a1230; --panel:#111c42; --panel2:#16244f; --ink:#f1ead6; --muted:#a6afca;
+    --gold:#e0b84f; --gold2:#f0cd73; --goldsoft:rgba(224,184,79,.16); --line:#27376d;
+    --accent:#9db8ff; --pos:#5fd39a; --neg:#ff8a7a; --warn:#f0b45a;
+    --c-eq:#6f95ff; --c-buf:#e0b84f; --c-fund:#4fc3b8; --c-wait:#7c86a8; --c-in:#f1ead6;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.28);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0a1230; --panel:#111c42; --panel2:#16244f; --ink:#f1ead6; --muted:#a6afca;
+  --gold:#e0b84f; --gold2:#f0cd73; --goldsoft:rgba(224,184,79,.16); --line:#27376d;
+  --accent:#9db8ff; --pos:#5fd39a; --neg:#ff8a7a; --warn:#f0b45a;
+  --c-eq:#6f95ff; --c-buf:#e0b84f; --c-fund:#4fc3b8; --c-wait:#7c86a8; --c-in:#f1ead6;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.28);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans);padding:0 0 76px}
+h1,h2,h3{font-family:var(--serif);font-weight:700;letter-spacing:-.01em;margin:0}
+a{color:var(--accent)}
+.wrap{max-width:1280px;margin:0 auto;padding:20px 16px}
+header.top{padding:8px 0 4px}
+header.top .kicker{color:var(--gold);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+header.top h1{font-size:clamp(26px,4.4vw,40px);margin:4px 0 6px}
+header.top p{margin:0;color:var(--muted);max-width:760px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.hero{padding:20px 22px;margin:16px 0;border-left:5px solid var(--gold2)}
+.hero h2{font-size:clamp(20px,3vw,28px);line-height:1.25}
+.hero h2 b{color:var(--gold)}
+.hero p{margin:8px 0 0;color:var(--muted)}
+.hero p.mc{color:var(--ink)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:0 0 16px}
+.kpi{padding:14px 16px}
+.kpi .l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.kpi .v{font-family:var(--serif);font-size:26px;font-weight:700;margin-top:2px;white-space:nowrap}
+.kpi .s{font-size:12.5px;color:var(--muted);margin-top:2px}
+.kpi.gold .v{color:var(--gold)}
+.pos{color:var(--pos)} .neg{color:var(--neg)}
+.layout{display:grid;grid-template-columns:minmax(310px,390px) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:979px){.layout{grid-template-columns:minmax(0,1fr)}}
+aside.inputs{position:sticky;top:10px;max-height:calc(100vh - 20px);overflow:auto;padding:6px 6px 10px}
+@media (max-width:979px){aside.inputs{position:static;max-height:none;overflow:visible}}
+details.grp{border-bottom:1px solid var(--line);padding:6px 10px}
+details.grp:last-child{border-bottom:0}
+details.grp>summary{cursor:pointer;font-family:var(--serif);font-weight:700;font-size:16px;padding:8px 0;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.grp>summary::-webkit-details-marker{display:none}
+details.grp>summary::after{content:"＋";color:var(--gold);font-family:var(--sans);font-weight:600}
+details.grp[open]>summary::after{content:"－"}
+.fld{display:block;margin:10px 0 14px}
+.fld .lab{display:block;font-weight:600;font-size:13.5px;margin-bottom:4px}
+.inp{display:flex;align-items:center;gap:8px}
+.inp em{font-style:normal;color:var(--muted);font-size:13px;min-width:34px}
+input[type=number],select,input[type=text]{
+  width:100%;font:inherit;color:var(--ink);background:var(--panel2);
+  border:1.5px solid var(--gold2);border-radius:10px;padding:8px 10px;min-height:40px;
+}
+input[type=number]:focus,select:focus,input[type=range]:focus{outline:3px solid var(--goldsoft);outline-offset:1px}
+input[type=range]{width:100%;accent-color:var(--gold2);margin-top:6px}
+.fld small{display:block;color:var(--muted);font-size:12.5px;margin-top:4px;line-height:1.35}
+.btn{font:inherit;font-weight:600;border:1.5px solid var(--gold2);background:var(--goldsoft);color:var(--ink);border-radius:10px;padding:8px 12px;cursor:pointer;min-height:38px}
+.btn:hover{background:var(--gold2);color:#10193a}
+.btn:focus-visible{outline:3px solid var(--goldsoft);outline-offset:2px}
+.btn.ghost{background:transparent}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.mini{width:100%;border-collapse:collapse;font-size:13px}
+.mini th{font-weight:600;text-align:left;color:var(--muted);padding:4px 4px;font-size:12px}
+.mini td{padding:3px 4px;vertical-align:middle}
+.mini input{padding:5px 7px;min-height:34px;font-size:13px}
+.mini td.ro{color:var(--muted);white-space:nowrap}
+main section{margin-bottom:18px}
+section.card{padding:18px 20px}
+section.card h2{font-size:21px;margin-bottom:4px}
+section.card .sub{color:var(--muted);margin:0 0 12px;font-size:14px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:6px 0 4px;font-size:13px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.legend i.ln{height:3px;border-radius:2px;vertical-align:3px;width:18px}
+.chartbox{position:relative;width:100%}
+.chartbox svg{display:block;width:100%;height:auto;touch-action:pan-y}
+.chartbox:focus-visible{outline:3px solid var(--goldsoft);outline-offset:2px;border-radius:8px}
+.tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--gold2);border-radius:10px;padding:8px 10px;font-size:12.5px;box-shadow:var(--shadow);min-width:150px;display:none;z-index:2}
+.tip b{display:block;margin-bottom:3px;font-family:var(--serif)}
+.tip div{display:flex;justify-content:space-between;gap:14px}
+.note{font-size:13px;color:var(--muted);margin:8px 0 0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}
+.stat{background:var(--panel2);border-radius:12px;padding:10px 12px}
+.stat .l{font-size:12px;color:var(--muted)}
+.stat .v{font-family:var(--serif);font-weight:700;font-size:19px}
+table.data{width:100%;border-collapse:collapse;font-size:14px}
+table.data th,table.data td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table.data td.n,table.data th.n{text-align:right;white-space:nowrap}
+table.data tr.tot td{font-weight:700;border-top:2px solid var(--gold2)}
+.scroll{overflow:auto;max-width:100%;border-radius:10px}
+.sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.sc{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px}
+.sc h3{font-size:16px;margin-bottom:2px}
+.sc .d{font-size:12.5px;color:var(--muted);min-height:34px}
+.sc .p{margin:8px 0}
+.sc .delta{font-family:var(--serif);font-size:22px;font-weight:700}
+.sc .line{font-size:12.5px;color:var(--muted)}
+.sc .exp{font-size:13px;margin-top:8px}
+.bar{position:relative;height:10px;border-radius:6px;background:var(--line);margin:8px 0 4px}
+.bar>span{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--gold2)}
+.bar>u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
+table.heat{border-collapse:separate;border-spacing:3px;width:100%;font-size:13px;text-align:center}
+table.heat th{font-weight:600;color:var(--muted);padding:4px;font-size:12px}
+table.heat td{padding:9px 4px;border-radius:8px}
+table.heat td.base{outline:2px solid var(--ink);outline-offset:-2px;font-weight:700}
+.warn{border-left:4px solid var(--warn);background:var(--goldsoft);padding:10px 12px;border-radius:10px;margin:8px 0;font-size:13.5px}
+.explain ol{margin:6px 0 0;padding-left:20px}
+.explain li{margin:5px 0}
+.explain dt{font-weight:700;margin-top:8px}
+.explain dd{margin:2px 0 0;color:var(--muted)}
+.mt{max-height:420px;overflow:auto;border:1px solid var(--line);border-radius:10px}
+.mt table{border-collapse:collapse;font-size:12.5px;min-width:1180px}
+.mt th{position:sticky;top:0;background:var(--panel2);z-index:1;padding:6px 8px;text-align:right;white-space:nowrap}
+.mt td{padding:3px 8px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+.mt td:first-child,.mt th:first-child{text-align:left;position:sticky;left:0;background:var(--panel2)}
+.mt input{width:84px;min-height:28px;padding:2px 6px;font-size:12.5px;text-align:right;border-radius:6px}
+.mt input.ov{background:var(--gold2);color:#10193a}
+.disclaimer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;margin-top:6px}
+#dock{position:fixed;left:0;right:0;bottom:0;background:var(--panel);border-top:2px solid var(--gold2);padding:8px 16px;display:flex;justify-content:space-between;align-items:center;z-index:5;box-shadow:0 -4px 16px rgba(0,0,0,.12)}
+#dock b{font-family:var(--serif);font-size:19px;color:var(--gold)}
+#dock span{font-size:12.5px;color:var(--muted)}
+.src-tag{display:inline-block;font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:999px;border:1px solid var(--line)}
+.src-tag.ok{color:var(--pos);border-color:var(--pos)}
+.src-tag.st{color:var(--warn);border-color:var(--warn)}
+@media (prefers-reduced-motion:no-preference){.bar>span{transition:width .35s ease}.btn{transition:background .15s}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media (min-width:980px){#dock{display:none}body{padding-bottom:20px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="kicker">Laboratorio · Piano d'accumulo</div>
+  <h1>Quanto diventano i tuoi soldi, mese per mese</h1>
+  <p>Cambia un numero e tutto si ricalcola, come in un foglio Excel: orizzonte, quanto versi ogni anno, quanto metti subito, quando arrivano i soldi extra. Le celle con il bordo oro sono modificabili.</p>
+</header>
+
+<section class="card hero" aria-live="polite">
+  <h2 id="verdict">Calcolo in corso…</h2>
+  <p id="verdict2"></p>
+  <p id="verdict3" class="mc"></p>
+</section>
+
+<div class="kpis" id="kpis"></div>
+<div id="warns"></div>
+
+<div class="layout">
+<aside class="card inputs" aria-label="Parametri del piano">
+  <div class="btnrow" style="padding:6px 10px 0">
+    <button class="btn" id="b-reset" type="button">Valori di esempio</button>
+    <button class="btn ghost" id="b-p2" type="button">20 anni, PAC costante</button>
+    <button class="btn ghost" id="b-p3" type="button">Tanto capitale subito</button>
+    <button class="btn ghost" id="b-p4" type="button">Solo PAC, zero capitale</button>
+  </div>
+  <div id="groups"></div>
+
+  <details class="grp" open>
+    <summary>5 · Stipendio e PAC, anno per anno</summary>
+    <p class="note" style="margin:0 0 6px">Il PAC automatico è quello che resta dopo le spese (stipendio − spesa). Scrivi un importo nella colonna «PAC tuo» per decidere tu quanto versare in quell'anno.</p>
+    <div class="scroll"><table class="mini" id="yt"><thead><tr><th>Anno</th><th>Netto/mese €</th><th>Spesa €</th><th>PAC auto €</th><th>PAC tuo €</th></tr></thead><tbody></tbody></table></div>
+    <div class="fld" style="margin-top:12px">
+      <span class="lab">Crescita dello stipendio</span>
+      <div class="inp"><input type="number" id="growth" step="0.5" min="-10" max="30" aria-label="Crescita annua stipendio"><em>%/anno</em></div>
+      <small>Premi il pulsante per riempire gli anni successivi al primo con questa crescita.</small>
+      <div class="btnrow"><button class="btn" id="b-growth" type="button">Applica crescita agli anni</button></div>
+    </div>
+    <label class="fld"><span class="lab">PAC aggiuntivo fisso</span>
+      <span class="inp"><input type="number" id="pacBoost" step="10" min="0" max="100000"><em>€/mese</em></span>
+      <small>Si somma al PAC di tutti i mesi: serve per provare «e se investissi X € in più ogni mese?».</small></label>
+  </details>
+
+  <details class="grp" open>
+    <summary>6 · Versamenti una tantum</summary>
+    <p class="note" style="margin:0 0 6px">Un bonus, un regalo, un prelievo (importo negativo): scegli mese, importo e dove va.</p>
+    <div class="scroll"><table class="mini" id="ot"><thead><tr><th>Mese</th><th>Importo €</th><th>Dove</th><th></th></tr></thead><tbody></tbody></table></div>
+    <div class="btnrow"><button class="btn" id="b-addone" type="button">+ Aggiungi versamento</button></div>
+  </details>
+</aside>
+
+<main>
+  <section class="card">
+    <h2>Come crescono i tuoi soldi</h2>
+    <p class="sub">Tre «salvadanai» impilati: azionario, cuscinetto, fondo obiettivo. La linea tratteggiata sono i soldi messi davvero da te.</p>
+    <div class="legend" id="leg1"></div>
+    <div class="chartbox" id="ch1" tabindex="0" role="group" aria-label="Grafico dell'evoluzione del patrimonio. Usa le frecce per scorrere i mesi."></div>
+    <p class="note">La distanza tra l'area e la linea tratteggiata è il rendimento stimato: all'inizio è quasi nulla, poi si allarga (interesse composto).</p>
+  </section>
+
+  <section class="card">
+    <h2>E se il mercato non va come previsto?</h2>
+    <p class="sub">Mille mercati simulati con la stessa strategia. La fascia colorata contiene gli 8 casi su 10 centrali; la linea piena è il caso di mezzo.</p>
+    <div class="legend" id="leg2"></div>
+    <div class="chartbox" id="ch2" tabindex="0" role="group" aria-label="Simulazione di mercato sull'azionario. Usa le frecce per scorrere i mesi."></div>
+    <div class="stats" id="mcstats"></div>
+    <p class="note">Il rendimento medio è quello che hai impostato; la volatilità decide quanto i risultati si allargano. Non è una previsione: è un modo per vedere il rischio.</p>
+  </section>
+
+  <section class="card">
+    <h2>Prova: cosa succede se…</h2>
+    <p class="sub">Ogni scheda cambia una sola cosa rispetto al tuo piano e mostra la differenza finale. Modifica l'importo dentro la scheda.</p>
+    <div class="sc-grid" id="scs"></div>
+  </section>
+
+  <section class="card">
+    <h2>Sensibilità: rendimento contro PAC</h2>
+    <p class="sub">Patrimonio totale a fine piano al variare di due leve. Il riquadro con il bordo scuro è il tuo piano.</p>
+    <div class="btnrow" style="align-items:flex-end">
+      <label class="fld" style="margin:0;flex:1;min-width:150px"><span class="lab">Passo del rendimento</span><span class="inp"><input type="number" id="stepR" step="0.5" min="0.5" max="5"><em>punti %</em></span></label>
+      <label class="fld" style="margin:0;flex:1;min-width:150px"><span class="lab">Passo del PAC</span><span class="inp"><input type="number" id="stepP" step="25" min="10" max="2000"><em>€/mese</em></span></label>
+    </div>
+    <div class="scroll"><table class="heat" id="heat"></table></div>
+    <p class="note">Più scuro = patrimonio più alto. Guarda quale direzione cambia di più il risultato: spesso conta più versare con costanza che inseguire un punto di rendimento in più.</p>
+  </section>
+
+  <section class="card">
+    <h2>Dove vanno i soldi</h2>
+    <p class="sub">Riepilogo dei flussi e della situazione finale, come il foglio «Riepilogo» dell'Excel.</p>
+    <div class="scroll"><table class="data" id="flows"></table></div>
+  </section>
+
+  <section class="card">
+    <details id="mdet">
+      <summary style="cursor:pointer;font-family:var(--serif);font-weight:700;font-size:21px">Il foglio mese per mese</summary>
+      <p class="sub" style="margin-top:8px">Ogni riga è un mese. Scrivi un importo nella colonna PAC per cambiarlo solo in quel mese (diventa oro); svuotala per tornare all'automatico.</p>
+      <div class="btnrow"><button class="btn" id="b-clearpac" type="button">Cancella i PAC modificati a mano</button></div>
+      <div class="mt" id="mt"></div>
+    </details>
+  </section>
+
+  <section class="card explain">
+    <h2>Come funziona, in 5 passi</h2>
+    <ol>
+      <li><b>Si parte dalla liquidità.</b> Una parte resta nel cuscinetto di emergenza (mai investita); il resto entra in azionario a rate mensili, le «tranche».</li>
+      <li><b>Ogni mese entra il PAC.</b> È ciò che avanza dopo le spese, oppure l'importo che scegli tu per quell'anno o quel mese.</li>
+      <li><b>Le mensilità extra (13ª/14ª) hanno una priorità.</b> Prima rimettono il cuscinetto al livello giusto, poi riempiono il fondo obiettivo, e solo il resto va in azionario.</li>
+      <li><b>I rendimenti si compongono ogni mese.</b> L'azionario cresce al tasso azionario, cuscinetto e fondo al tasso monetario.</li>
+      <li><b>Cambi un numero, cambia tutto.</b> Grafici, schede «cosa succede se…» e tabella di sensibilità usano lo stesso motore.</li>
+    </ol>
+    <dl>
+      <dt>PAC (piano di accumulo)</dt><dd>Versamento ricorrente, uguale o simile ogni mese, nello stesso strumento.</dd>
+      <dt>Tranche</dt><dd>Rate in cui dividi il capitale iniziale. Con rendimento costante entrare subito rende di più; le tranche servono a ridurre il rischio di entrare nel momento sbagliato (lo vedi nella scheda «Tutto subito»).</dd>
+      <dt>Cuscinetto</dt><dd>Soldi di emergenza espressi in mesi di spesa. Non è un investimento: serve a non dover vendere nei momenti brutti.</dd>
+      <dt>Volatilità</dt><dd>Quanto il mercato oscilla in un anno. Più è alta, più i risultati possibili si allontanano dalla media.</dd>
+    </dl>
+  </section>
+
+  <section class="card">
+    <h2>Dati usati e fonti</h2>
+    <p class="sub">Verifica del 4 ottobre 2026. «Stima» indica una mia sintesi o un'ipotesi, non un dato ufficiale.</p>
+    <div class="scroll"><table class="data">
+      <thead><tr><th>Dato</th><th>Valore</th><th>Fonte e data</th><th>Stato</th></tr></thead>
+      <tbody>
+      <tr><td>Tasso BCE sui depositi</td><td>2,50% (dal 16/09/2026)</td><td>Decisione di politica monetaria BCE del 10/09/2026, riportata da più testate finanziarie; controlla il comunicato su ecb.europa.eu</td><td><span class="src-tag ok">verificato su fonti secondarie</span></td></tr>
+      <tr><td>Inflazione attesa area euro</td><td>3,0% (2026), 2,5% (2027), 2,1% (2028)</td><td>Proiezioni BCE di settembre 2026 (stessa fonte)</td><td><span class="src-tag ok">verificato su fonti secondarie</span></td></tr>
+      <tr><td>Imposta su plusvalenze ETF armonizzati</td><td>26%</td><td>Imposta sostitutiva ex art. 10-ter L. 77/1983, descritta da fiscoetasse.com; confermata da moneyviz.it (agg. 16/08/2026)</td><td><span class="src-tag ok">verificato su fonti secondarie</span></td></tr>
+      <tr><td>Inflazione della spesa nel piano</td><td>2,5% annuo</td><td>Scelta prudente vicina alla proiezione BCE 2027</td><td><span class="src-tag st">stima</span></td></tr>
+      <tr><td>Rendimento azionario</td><td>6% annuo nominale lordo</td><td>Ipotesi prudente per un ETF azionario globale: non è una previsione né un dato storico garantito</td><td><span class="src-tag st">stima</span></td></tr>
+      <tr><td>Rendimento monetario</td><td>2% annuo</td><td>Sotto il tasso BCE (2,50% lordo) per tener conto della tassazione al 26% e dei margini delle banche</td><td><span class="src-tag st">stima</span></td></tr>
+      <tr><td>Volatilità azionario globale</td><td>15% annua</td><td>Valore indicativo per un indice azionario mondiale, usato solo nella simulazione</td><td><span class="src-tag st">stima</span></td></tr>
+      <tr><td>Stipendi, spesa, liquidità, fondo obiettivo</td><td>Valori d'esempio</td><td>Numeri generici e realistici, da sostituire con i tuoi</td><td><span class="src-tag st">stima</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Fonti consultate: <a href="https://www.ecnews.it/lavoro/?p=83857" target="_blank" rel="noopener">ecnews.it (decisione BCE 10/09/2026)</a>, <a href="https://www.fiscoetasse.com/approfondimenti/16091-etf-armonizzato-la-tassazione.html" target="_blank" rel="noopener">fiscoetasse.com (ETF armonizzati)</a>, <a href="https://blog.moneyviz.it/tassazione-etf-2026-plusvalenze-minusvalenze-730-modello-redditi/" target="_blank" rel="noopener">moneyviz.it (tassazione ETF 2026)</a>.</p>
+    <p class="disclaimer"><b>Avvertenza.</b> Strumento di confronto, non consulenza finanziaria, fiscale o legale. I risultati dipendono dalle ipotesi che inserisci. Non sono modellati: costi dell'ETF, imposta di bollo, tassazione degli interessi su cuscinetto e fondo (il tasso monetario va inserito già al netto), cambio euro/valuta estera, ribilanciamenti, periodi di mercato reali. I dati restano nel tuo browser: nulla viene inviato.</p>
+  </section>
+</main>
+</div>
+</div>
+<div id="dock" role="status"><span>Patrimonio a fine piano</span><b id="dock-v">—</b></div>
+
+<script>
+/*ENGINE_START*/
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function num(x,d){x=Number(x);return isFinite(x)?x:(d||0);}
+function simulate(p){
+  var H=Math.max(1,Math.round(num(p.horizon,12)));
+  var rEq=Math.pow(1+num(p.retEq),1/12)-1, rC=Math.pow(1+num(p.retCash),1/12)-1;
+  var total0=Math.max(0,num(p.totalCash));
+  var buf0=Math.min(Math.max(0,num(p.bufferStart)),total0);
+  var cap=Math.max(0,total0-buf0);
+  var nT=Math.max(1,Math.min(Math.round(num(p.nTranche,1)),H));
+  var tr=cap/nT;
+  var delay=Math.max(0,Math.min(Math.round(num(p.delay)),H-1));
+  var nExtra=Math.round(num(p.nExtra));
+  var goal=Math.max(0,num(p.goal));
+  var years=p.years&&p.years.length?p.years:[{net:0,pac:null}];
+  var ones={};
+  (p.oneoffs||[]).forEach(function(o){
+    var m=Math.round(num(o.month));
+    if(m>=1&&m<=H&&isFinite(Number(o.amount))){
+      var k=(o.dest==='buf'||o.dest==='fund')?o.dest:'eq';
+      (ones[m]=ones[m]||{eq:0,buf:0,fund:0})[k]+=Number(o.amount);
+    }
+  });
+  var eq=0,buf=buf0,fund=0,wait=0,cumEq=0,cumIn=buf0;
+  var rows=[],sum={tranche:0,pac:0,toEq:0,toFund:0,toBuf:0,oneEq:0,oneBuf:0,oneFund:0,extra:0};
+  var negMonths=0;
+  for(var m=1;m<=H;m++){
+    var year=Math.floor((m-1)/12)+1;
+    var y=years[Math.min(year,years.length)-1];
+    var net=num(y.net);
+    var spend=num(p.spend0)*Math.pow(1+num(p.spendInfl),year-1);
+    var surplus=net-spend;
+    if(surplus<0)negMonths++;
+    var pacAuto=Math.max(0,surplus);
+    var mo=p.monthPac&&p.monthPac[m];
+    var pac;
+    if(mo!==undefined&&mo!==null&&isFinite(Number(mo)))pac=Math.max(0,Number(mo));
+    else if(y.pac!==null&&y.pac!==undefined&&isFinite(Number(y.pac)))pac=Math.max(0,Number(y.pac));
+    else pac=pacAuto;
+    pac+=Math.max(0,num(p.pacBoost));
+    var tranche=m<=nT?tr:0;
+    var mm=m%12;
+    var isExtra=nExtra>=2?(mm===6||mm===0):(nExtra===1?mm===0:false);
+    var extra=isExtra?net*num(p.extraPct):0;
+    var target=spend*num(p.bufferMonths);
+    var toBuf=Math.min(extra,Math.max(0,target-buf));
+    var toFund=(goal>0&&year>=Math.round(num(p.goalStartYear,2)))?Math.min(extra-toBuf,Math.max(0,goal-fund)):0;
+    var toEq=extra-toBuf-toFund;
+    var one=ones[m]||{eq:0,buf:0,fund:0};
+    var flowEq=pac+tranche+toEq+one.eq;
+    var inflow;
+    if(m<=delay){wait=wait*(1+rC)+flowEq;inflow=0;}
+    else if(delay>0&&m===delay+1){inflow=flowEq+wait*(1+rC);wait=0;}
+    else inflow=flowEq;
+    eq=Math.max(0,eq*(1+rEq)+inflow);
+    buf=Math.max(0,buf*(1+rC)+toBuf+one.buf);
+    fund=Math.max(0,fund*(1+rC)+toFund+one.fund);
+    cumEq+=flowEq;
+    cumIn+=flowEq+toBuf+toFund+one.buf+one.fund;
+    sum.tranche+=tranche;sum.pac+=pac;sum.toEq+=toEq;sum.toFund+=toFund;sum.toBuf+=toBuf;
+    sum.oneEq+=one.eq;sum.oneBuf+=one.buf;sum.oneFund+=one.fund;sum.extra+=extra;
+    rows.push({m:m,year:year,net:net,spend:spend,surplus:surplus,pacAuto:pacAuto,pac:pac,tranche:tranche,extra:extra,
+      toBuf:toBuf,toFund:toFund,toEq:toEq,one:one.eq+one.buf+one.fund,flowEq:flowEq,inflow:inflow,
+      eq:eq,buf:buf,fund:fund,wait:wait,total:eq+buf+fund+wait,cumEq:cumEq,cumIn:cumIn,target:target});
+  }
+  var last=rows[rows.length-1];
+  var gainEq=last.eq-last.cumEq;
+  var tax=Math.max(0,gainEq)*Math.max(0,num(p.taxRate));
+  var totalEnd=last.total;
+  return {rows:rows,H:H,sum:sum,buf0:buf0,cap:cap,nT:nT,delay:delay,negMonths:negMonths,
+    eqEnd:last.eq,bufEnd:last.buf,fundEnd:last.fund,totalEnd:totalEnd,cumIn:last.cumIn,cumEq:last.cumEq,
+    gain:totalEnd-last.cumIn,gainEq:gainEq,tax:tax,netEnd:totalEnd-tax,
+    real:totalEnd/Math.pow(1+num(p.spendInfl),H/12),
+    bufCover:last.spend>0?last.buf/last.spend:0,
+    fundCover:goal>0?last.fund/goal:null,goal:goal};
+}
+var MC_N=1000,MC_HMAX=360;
+function makeZ(seed){
+  var r=mulberry32(seed),z=new Float32Array(MC_N*MC_HMAX);
+  for(var i=0;i<z.length;i+=2){
+    var u=Math.max(r(),1e-12),v=r(),R=Math.sqrt(-2*Math.log(u));
+    z[i]=R*Math.cos(2*Math.PI*v);
+    if(i+1<z.length)z[i+1]=R*Math.sin(2*Math.PI*v);
+  }
+  return z;
+}
+function mcRun(inflows,retEq,vol,Z,keep){
+  var H=inflows.length,s=Math.max(0,vol)/Math.sqrt(12);
+  var mu=Math.log(1+retEq)/12-s*s/2;
+  var finals=new Float64Array(MC_N),paths=keep?new Float32Array(MC_N*H):null;
+  for(var i=0;i<MC_N;i++){
+    var eq=0,b=i*MC_HMAX;
+    for(var m=0;m<H;m++){
+      var r=Math.exp(mu+s*Z[b+m])-1;
+      eq=Math.max(0,eq*(1+r)+inflows[m]);
+      if(paths)paths[i*H+m]=eq;
+    }
+    finals[i]=eq;
+  }
+  return {finals:finals,paths:paths,H:H};
+}
+function pct(sorted,q){var i=Math.min(sorted.length-1,Math.max(0,Math.round(q*(sorted.length-1))));return sorted[i];}
+function mcBands(run){
+  var H=run.H,lo=[],mid=[],hi=[],tmp=new Float64Array(MC_N);
+  for(var m=0;m<H;m++){
+    for(var i=0;i<MC_N;i++)tmp[i]=run.paths[i*H+m];
+    tmp.sort();
+    lo.push(pct(tmp,.1));mid.push(pct(tmp,.5));hi.push(pct(tmp,.9));
+  }
+  return {lo:lo,mid:mid,hi:hi};
+}
+/*ENGINE_END*/
+
+/* ---------- utilità di formato ---------- */
+var $=function(s,r){return (r||document).querySelector(s);};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+function fmtN(n,d){
+  d=d||0;if(!isFinite(n))return '—';
+  var s=Math.abs(n).toFixed(d),parts=s.split('.'),i=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+  var out=i+(parts[1]?','+parts[1]:'');
+  return (n<0&&Number(s)!==0?'−':'')+out;
+}
+function fmtE(n,d){return fmtN(n,d||0)+' €';}
+function fmtS(n){return (n>0?'+':(n<0?'':''))+fmtE(n);}
+function fmtP(x,d){d=d===undefined?1:d;var s=fmtN(x*100,d);if(d&&/,0+$/.test(s))s=s.replace(/,0+$/,'');return s+'%';}
+function fmtK(v){
+  if(v>=1e6)return fmtN(v/1e6,1)+' M';
+  if(v>=1e4)return fmtN(v/1e3,0)+' k';
+  if(v>=1e3)return fmtN(v/1e3,1)+' k';
+  return fmtN(v,0);
+}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function clone(o){return JSON.parse(JSON.stringify(o));}
+
+/* ---------- stato ---------- */
+var KEY='piano-investimenti-lab-v1';
+function yearsFrom(first,growth,n){var a=[];for(var i=0;i<n;i++)a.push({net:Math.round(first*Math.pow(1+growth,i)),pac:null});return a;}
+function defaults(){
+  return {
+    horizon:60,totalCash:8000,bufferStart:4000,nTranche:4,delay:0,
+    spend0:1200,spendInfl:0.025,bufferMonths:4,
+    retEq:0.06,retCash:0.02,vol:0.15,taxRate:0.26,
+    nExtra:2,extraPct:0.92,goal:8000,goalStartYear:2,
+    years:[{net:1500,pac:null},{net:1650,pac:null},{net:1800,pac:null},{net:1900,pac:null},{net:2000,pac:null}],
+    salaryGrowth:0.025,pacBoost:0,oneoffs:[],monthPac:{},
+    stepR:1.5,stepP:100,
+    sc:{extraStart:5000,extraPac:100,delay:12,retDelta:2,horizonPlus:12}
+  };
+}
+var S=defaults();
+function ensureYears(){
+  var n=Math.ceil(S.horizon/12);
+  while(S.years.length<n){var l=S.years[S.years.length-1]||{net:0};S.years.push({net:l.net,pac:null});}
+}
+
+/* ---------- definizione campi ---------- */
+var GROUPS=[
+ {title:'1 · Orizzonte e partenza',open:true,fields:[
+  {k:'horizon',l:'Orizzonte del piano',u:'mesi',min:6,max:360,step:1,slider:true,h:'Quanto dura il piano. 12 mesi = 1 anno, 60 mesi = 5 anni, massimo 360.'},
+  {k:'totalCash',l:'Liquidità totale di partenza',u:'€',min:0,max:10000000,step:100,h:'Tutti i soldi che hai oggi da parte, cuscinetto compreso.'},
+  {k:'bufferStart',l:'Di cui già nel cuscinetto',u:'€',min:0,max:10000000,step:100,h:'Resta di emergenza e non viene investita. Il resto entra in azionario a tranche.'},
+  {k:'nTranche',l:'Tranche di ingresso',u:'rate',min:1,max:60,step:1,h:'In quante rate mensili dividi il capitale iniziale. 1 = tutto subito.'},
+  {k:'delay',l:'Partenza ritardata',u:'mesi',min:0,max:120,step:1,h:'Per vedere il costo di aspettare: i versamenti restano fermi sul conto per questi mesi, poi entrano tutti insieme.'}
+ ]},
+ {title:'2 · Spese e cuscinetto',open:false,fields:[
+  {k:'spend0',l:'Spesa mensile oggi',u:'€',min:0,max:100000,step:50,h:'Quanto spendi al mese. Serve a calcolare il PAC automatico e il cuscinetto.'},
+  {k:'spendInfl',l:'Inflazione annua della spesa',u:'%',pct:true,min:-5,max:20,step:0.1,h:'Di quanto cresce la spesa ogni anno. Fa calare il PAC automatico se lo stipendio non cresce.'},
+  {k:'bufferMonths',l:'Mesi di spesa nel cuscinetto',u:'mesi',min:0,max:36,step:0.25,h:'Obiettivo del cuscinetto: spesa mensile per questo numero di mesi.'}
+ ]},
+ {title:'3 · Rendimenti e tasse',open:false,fields:[
+  {k:'retEq',l:'Rendimento annuo azionario',u:'%',pct:true,min:-20,max:30,step:0.1,h:'Nominale e lordo, composto ogni mese. Un\'ipotesi, non una promessa.'},
+  {k:'retCash',l:'Rendimento annuo monetario',u:'%',pct:true,min:-5,max:15,step:0.1,h:'Per cuscinetto e fondo. Inseriscilo già al netto delle tasse.'},
+  {k:'vol',l:'Volatilità annua azionario',u:'%',pct:true,min:0,max:60,step:1,h:'Usata solo nella simulazione di mercato: più è alta, più è larga la fascia.'},
+  {k:'taxRate',l:'Imposta sulle plusvalenze',u:'%',pct:true,min:0,max:60,step:1,h:'Mostra quanto resterebbe vendendo tutto a fine piano.'}
+ ]},
+ {title:'4 · Mensilità extra e fondo obiettivo',open:false,fields:[
+  {k:'nExtra',l:'Mensilità aggiuntive all\'anno',select:[[0,'Nessuna'],[1,'Una (mese 12)'],[2,'Due (mesi 6 e 12)']],h:'Per esempio 13ª e 14ª. Arrivano nei mesi indicati di ogni anno.'},
+  {k:'extraPct',l:'Netto della mensilità, in % del netto mensile',u:'%',pct:true,min:0,max:200,step:1,h:'Spesso più bassa di 100%: le mensilità extra sono tassate di più.'},
+  {k:'goal',l:'Fondo obiettivo',u:'€',min:0,max:10000000,step:100,h:'Una spesa futura già nota (trasloco, caparra, studio). 0 = nessun fondo.'},
+  {k:'goalStartYear',l:'Il fondo si riempie dall\'anno',u:'n°',min:1,max:30,step:1,h:'Prima di quest\'anno le mensilità extra vanno in azionario.'}
+ ]}
+];
+
+/* ---------- costruzione input ---------- */
+function buildGroups(){
+  var host=$('#groups');host.innerHTML='';
+  GROUPS.forEach(function(g){
+    var d=document.createElement('details');d.className='grp';if(g.open)d.open=true;
+    var html='<summary>'+esc(g.title)+'</summary>';
+    g.fields.forEach(function(f){
+      html+='<label class="fld"><span class="lab">'+esc(f.l)+'</span>';
+      if(f.select){
+        html+='<select data-k="'+f.k+'">'+f.select.map(function(o){return '<option value="'+o[0]+'">'+esc(o[1])+'</option>';}).join('')+'</select>';
+      }else{
+        html+='<span class="inp"><input type="number" inputmode="decimal" data-k="'+f.k+'" min="'+f.min+'" max="'+f.max+'" step="'+f.step+'"><em>'+esc(f.u)+'</em></span>';
+        if(f.slider)html+='<input type="range" data-s="'+f.k+'" min="'+f.min+'" max="'+f.max+'" step="1" aria-label="'+esc(f.l)+' (cursore)">';
+      }
+      html+='<small>'+esc(f.h)+'</small></label>';
+    });
+    d.innerHTML=html;host.appendChild(d);
+  });
+  $$('#groups [data-k]').forEach(function(el){
+    var ev=el.tagName==='SELECT'?'change':'input';
+    el.addEventListener(ev,function(){onField(el.getAttribute('data-k'),el.value,el);});
+  });
+  $$('#groups [data-s]').forEach(function(el){
+    el.addEventListener('input',function(){onField(el.getAttribute('data-s'),el.value,el);syncFields(el);});
+  });
+}
+function fieldDef(k){var r=null;GROUPS.forEach(function(g){g.fields.forEach(function(f){if(f.k===k)r=f;});});return r;}
+function onField(k,raw,src){
+  if(raw===''||raw===null)return;
+  var v=parseFloat(String(raw).replace(',','.'));
+  if(!isFinite(v))return;
+  var f=fieldDef(k);if(!f)return;
+  if(f.select){S[k]=v;}
+  else{
+    if(f.pct)v=v/100;
+    var lo=f.pct?f.min/100:f.min,hi=f.pct?f.max/100:f.max;
+    S[k]=Math.min(hi,Math.max(lo,v));
+  }
+  if(k==='horizon'){S.horizon=Math.round(S.horizon);ensureYears();}
+  if(k==='nTranche')S.nTranche=Math.round(S.nTranche);
+  if(k==='delay')S.delay=Math.round(S.delay);
+  schedule();
+}
+function syncFields(except){
+  $$('#groups [data-k]').forEach(function(el){
+    if(el===except||el===document.activeElement)return;
+    var f=fieldDef(el.getAttribute('data-k'));if(!f)return;
+    var v=S[f.k];
+    el.value=f.select?String(v):(f.pct?+(v*100).toFixed(4):v);
+  });
+  $$('#groups [data-s]').forEach(function(el){if(el!==except)el.value=S[el.getAttribute('data-s')];});
+}
+function syncExtras(){
+  var g=$('#growth');if(g&&g!==document.activeElement)g.value=+(S.salaryGrowth*100).toFixed(3);
+  var b=$('#pacBoost');if(b&&b!==document.activeElement)b.value=S.pacBoost;
+  var a=$('#stepR');if(a&&a!==document.activeElement)a.value=S.stepR;
+  var c=$('#stepP');if(c&&c!==document.activeElement)c.value=S.stepP;
+}
+
+/* ---------- tabella anni ---------- */
+var yearsBuilt=-1;
+function buildYears(force){
+  var n=Math.ceil(S.horizon/12);
+  if(!force&&n===yearsBuilt)return;
+  yearsBuilt=n;
+  var tb=$('#yt tbody');tb.innerHTML='';
+  for(var i=0;i<n;i++){
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td class="ro">Anno '+(i+1)+'</td>'+
+      '<td><input type="number" class="yn" data-i="'+i+'" step="50" min="0" aria-label="Netto mensile anno '+(i+1)+'"></td>'+
+      '<td class="ro sp"></td><td class="ro pa"></td>'+
+      '<td><input type="number" class="yp" data-i="'+i+'" step="50" min="0" placeholder="auto" aria-label="PAC deciso da te, anno '+(i+1)+'"></td>';
+    tb.appendChild(tr);
+  }
+  $$('.yn',tb).forEach(function(el){
+    el.value=S.years[el.getAttribute('data-i')].net;
+    el.addEventListener('input',function(){var v=parseFloat(el.value);if(!isFinite(v))return;S.years[+el.getAttribute('data-i')].net=Math.max(0,v);schedule();});
+  });
+  $$('.yp',tb).forEach(function(el){
+    var p=S.years[el.getAttribute('data-i')].pac;el.value=(p===null||p===undefined)?'':p;
+    el.addEventListener('input',function(){
+      var i=+el.getAttribute('data-i');
+      if(el.value===''){S.years[i].pac=null;}
+      else{var v=parseFloat(el.value);if(!isFinite(v))return;S.years[i].pac=Math.max(0,v);}
+      schedule();
+    });
+  });
+}
+function updateYears(sim){
+  var rows=$$('#yt tbody tr');
+  rows.forEach(function(tr,i){
+    var r=sim.rows.filter(function(x){return x.year===i+1;})[0];
+    if(!r)return;
+    $('.sp',tr).textContent=fmtN(r.spend,0);
+    $('.pa',tr).textContent=fmtN(r.pacAuto,0);
+    var y=$('.yp',tr);y.placeholder=fmtN(r.pacAuto,0);
+  });
+}
+
+/* ---------- versamenti una tantum ---------- */
+function buildOnes(){
+  var tb=$('#ot tbody');tb.innerHTML='';
+  S.oneoffs.forEach(function(o,i){
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td><input type="number" class="om" min="1" max="360" step="1" value="'+o.month+'" aria-label="Mese del versamento"></td>'+
+      '<td><input type="number" class="oa" step="100" value="'+o.amount+'" aria-label="Importo"></td>'+
+      '<td><select class="od" aria-label="Destinazione"><option value="eq">Azionario</option><option value="buf">Cuscinetto</option><option value="fund">Fondo</option></select></td>'+
+      '<td><button class="btn ghost" type="button" aria-label="Elimina versamento" style="padding:2px 8px;min-height:30px">✕</button></td>';
+    $('.od',tr).value=o.dest;
+    $('.om',tr).addEventListener('input',function(e){var v=parseFloat(e.target.value);if(isFinite(v)){o.month=Math.max(1,Math.round(v));schedule();}});
+    $('.oa',tr).addEventListener('input',function(e){var v=parseFloat(e.target.value);if(isFinite(v)){o.amount=v;schedule();}});
+    $('.od',tr).addEventListener('change',function(e){o.dest=e.target.value;schedule();});
+    $('button',tr).addEventListener('click',function(){S.oneoffs.splice(i,1);buildOnes();schedule();});
+    tb.appendChild(tr);
+  });
+  if(!S.oneoffs.length){tb.innerHTML='<tr><td colspan="4" class="ro">Nessun versamento extra: aggiungine uno per provare.</td></tr>';}
+}
+
+/* ---------- grafici SVG ---------- */
+function niceStep(v){var e=Math.pow(10,Math.floor(Math.log10(v||1))),f=v/e;return (f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*e;}
+function drawChart(el,cfg){
+  var W=Math.max(300,el.clientWidth||600),Ht=W<520?250:330;
+  var ml=W<520?44:58,mr=10,mt=10,mb=30,iw=W-ml-mr,ih=Ht-mt-mb,N=cfg.n;
+  var X=function(m){return ml+(N<=1?0:(m-1)/(N-1))*iw;};
+  var stackTop=new Array(N).fill(0),ymax=0;
+  (cfg.areas||[]).forEach(function(a){a.values.forEach(function(v,i){stackTop[i]+=v;});});
+  stackTop.forEach(function(v){ymax=Math.max(ymax,v);});
+  (cfg.lines||[]).forEach(function(l){l.values.forEach(function(v){ymax=Math.max(ymax,v);});});
+  if(cfg.band)cfg.band.hi.forEach(function(v){ymax=Math.max(ymax,v);});
+  if(!(ymax>0))ymax=1;
+  var step=niceStep(ymax/5),top=Math.ceil(ymax/step)*step;
+  var Y=function(v){return mt+ih-(v/top)*ih;};
+  var s='<svg viewBox="0 0 '+W+' '+Ht+'" role="img" aria-label="'+esc(cfg.aria||'Grafico')+'" xmlns="http://www.w3.org/2000/svg">';
+  for(var t=0;t<=top+1e-9;t+=step){
+    s+='<line x1="'+ml+'" x2="'+(W-mr)+'" y1="'+Y(t)+'" y2="'+Y(t)+'" style="stroke:var(--line);stroke-width:1"/>';
+    s+='<text x="'+(ml-6)+'" y="'+(Y(t)+4)+'" text-anchor="end" style="fill:var(--muted);font-size:11px">'+fmtK(t)+'</text>';
+  }
+  var xs=N>=24?12*Math.ceil(N/12/8):Math.max(1,Math.ceil(N/6));
+  for(var m=xs;m<=N;m+=xs){
+    var lab=N>=24?(m/12)+(m%12?'':' a'):'m'+m;
+    if(N>=24&&m%12)lab='m'+m;
+    s+='<text x="'+X(m)+'" y="'+(Ht-9)+'" text-anchor="middle" style="fill:var(--muted);font-size:11px">'+lab+'</text>';
+  }
+  if(cfg.band){
+    var d='M';for(var i=0;i<N;i++)d+=(i?'L':'')+X(i+1)+' '+Y(cfg.band.hi[i]);
+    for(var j=N-1;j>=0;j--)d+='L'+X(j+1)+' '+Y(cfg.band.lo[j]);
+    s+='<path d="'+d+'Z" style="fill:'+cfg.band.color+';opacity:.2"/>';
+  }
+  var base=new Array(N).fill(0);
+  (cfg.areas||[]).forEach(function(a){
+    var d='M',i;
+    for(i=0;i<N;i++)d+=(i?'L':'')+X(i+1)+' '+Y(base[i]+a.values[i]);
+    for(i=N-1;i>=0;i--)d+='L'+X(i+1)+' '+Y(base[i]);
+    s+='<path d="'+d+'Z" style="fill:'+a.color+';opacity:.85"/>';
+    for(i=0;i<N;i++)base[i]+=a.values[i];
+  });
+  (cfg.lines||[]).forEach(function(l){
+    var d='M';for(var i=0;i<N;i++)d+=(i?'L':'')+X(i+1)+' '+Y(l.values[i]);
+    s+='<path d="'+d+'" style="fill:none;stroke:'+l.color+';stroke-width:'+(l.w||2)+(l.dash?';stroke-dasharray:'+l.dash:'')+'"/>';
+  });
+  s+='<line id="cx" x1="0" x2="0" y1="'+mt+'" y2="'+(mt+ih)+'" style="stroke:var(--ink);stroke-width:1;opacity:0"/>';
+  s+='<rect id="hit" x="'+ml+'" y="'+mt+'" width="'+iw+'" height="'+ih+'" style="fill:transparent"/></svg>';
+  el.innerHTML=s+'<div class="tip" role="presentation"></div>';
+  var tip=$('.tip',el),cx=$('#cx',el),hit=$('#hit',el),svg=$('svg',el);
+  function show(idx){
+    idx=Math.max(0,Math.min(N-1,idx));el._cur=idx;
+    var px=X(idx+1);cx.setAttribute('x1',px);cx.setAttribute('x2',px);cx.style.opacity=1;
+    var yr=Math.floor(idx/12)+1,html='<b>Mese '+(idx+1)+' · anno '+yr+'</b>';
+    var items=(cfg.areas||[]).slice().reverse().concat(cfg.band?[{label:'Caso sfavorevole (10°)',color:cfg.band.color,values:cfg.band.lo},{label:'Caso favorevole (90°)',color:cfg.band.color,values:cfg.band.hi}]:[]).concat(cfg.lines||[]);
+    items.forEach(function(a){html+='<div><span><i style="display:inline-block;width:9px;height:9px;border-radius:2px;background:'+a.color+';margin-right:5px"></i>'+esc(a.label)+'</span><b style="font-family:var(--sans)">'+fmtE(a.values[idx])+'</b></div>';});
+    tip.innerHTML=html;tip.style.display='block';
+    var bw=el.clientWidth,tw=tip.offsetWidth,sc=svg.getBoundingClientRect().width/W;
+    var left=px*sc+14;if(left+tw>bw)left=px*sc-tw-14;
+    tip.style.left=Math.max(0,left)+'px';tip.style.top='8px';
+  }
+  function hide(){cx.style.opacity=0;tip.style.display='none';}
+  function fromEvent(e){
+    var r=svg.getBoundingClientRect(),px=(e.clientX-r.left)/r.width*W;
+    return Math.round(((px-ml)/iw)*(N-1));
+  }
+  hit.addEventListener('pointermove',function(e){show(fromEvent(e));});
+  hit.addEventListener('pointerdown',function(e){show(fromEvent(e));});
+  hit.addEventListener('pointerleave',hide);
+  el.onkeydown=function(e){
+    if(e.key==='ArrowRight'){e.preventDefault();show((el._cur===undefined?-1:el._cur)+1);}
+    else if(e.key==='ArrowLeft'){e.preventDefault();show((el._cur===undefined?N:el._cur)-1);}
+    else if(e.key==='Escape'){hide();}
+  };
+  el.onblur=hide;
+}
+function legend(el,items){
+  el.innerHTML=items.map(function(i){return '<span><i class="'+(i.line?'ln':'')+'" style="background:'+i.color+'"></i>'+esc(i.label)+'</span>';}).join('');
+}
+
+/* ---------- scenari ---------- */
+var SCEN=[
+ {id:'s1',t:'Tutto subito',d:'Investi il capitale iniziale in un\'unica volta invece che a tranche.',
+  apply:function(p){p.nTranche=1;}},
+ {id:'s2',t:'Più soldi all\'inizio',d:'Metti subito una somma in più in azionario, al mese 1.',k:'extraStart',u:'€',step:500,min:0,max:1000000,
+  apply:function(p,v){p.oneoffs.push({month:1,amount:v,dest:'eq'});}},
+ {id:'s3',t:'Più PAC ogni mese',d:'Aumenti il versamento mensile per tutta la durata.',k:'extraPac',u:'€/mese',step:25,min:0,max:100000,
+  apply:function(p,v){p.pacBoost=(p.pacBoost||0)+v;}},
+ {id:'s4',t:'Aspetti prima di partire',d:'Il piano parte in ritardo: nel frattempo i soldi restano fermi sul conto.',k:'delay',u:'mesi',step:1,min:0,max:120,
+  apply:function(p,v){p.delay=(p.delay||0)+v;}},
+ {id:'s5',t:'Mercato più debole',d:'L\'azionario rende meno del previsto per tutto il periodo.',k:'retDelta',u:'punti % in meno',step:0.5,min:0,max:15,
+  apply:function(p,v){p.retEq=p.retEq-v/100;}},
+ {id:'s6',t:'Più tempo',d:'Allunghi l\'orizzonte lasciando invariato il resto.',k:'horizonPlus',u:'mesi in più',step:6,min:0,max:300,
+  apply:function(p,v){p.horizon=Math.min(360,p.horizon+v);}}
+];
+function buildScen(){
+  var host=$('#scs');host.innerHTML='';
+  SCEN.forEach(function(sc){
+    var d=document.createElement('div');d.className='sc';d.id='card-'+sc.id;
+    d.innerHTML='<h3>'+esc(sc.t)+'</h3><div class="d">'+esc(sc.d)+'</div>'+
+      (sc.k?'<div class="p"><div class="inp"><input type="number" data-sc="'+sc.k+'" step="'+sc.step+'" min="'+sc.min+'" max="'+sc.max+'" aria-label="'+esc(sc.t)+': importo"><em style="min-width:70px">'+esc(sc.u)+'</em></div></div>':'<div class="p"></div>')+
+      '<div class="delta"></div><div class="line"></div><div class="bar"><span></span><u></u></div><div class="line tt"></div><div class="exp"></div>';
+    host.appendChild(d);
+    var inp=$('input',d);
+    if(inp){
+      inp.value=S.sc[sc.k];
+      inp.addEventListener('input',function(){var v=parseFloat(inp.value);if(!isFinite(v))return;S.sc[sc.k]=Math.min(sc.max,Math.max(sc.min,v));schedule();});
+    }
+  });
+}
+function scenSyncInputs(){
+  $$('#scs [data-sc]').forEach(function(el){if(el!==document.activeElement)el.value=S.sc[el.getAttribute('data-sc')];});
+}
+
+/* ---------- render ---------- */
+var Z=null,last={};
+var raf=0;
+function schedule(){if(raf)return;raf=requestAnimationFrame(function(){raf=0;render();save();});}
+function render(){
+  S.horizon=Math.max(6,Math.min(360,Math.round(S.horizon)));
+  ensureYears();
+  if(Math.ceil(S.horizon/12)!==yearsBuilt)buildYears(true);
+  if(!Z)Z=makeZ(20260);
+  var sim=simulate(S);
+  var H=sim.H,rows=sim.rows;
+  last.sim=sim;
+
+  /* verdetto */
+  var yrs=H/12,yTxt=(H%12===0)?(H/12)+(H/12===1?' anno':' anni'):H+' mesi';
+  $('#verdict').innerHTML='Tra '+yTxt+' avrai circa <b>'+fmtE(sim.totalEnd)+'</b>: '+fmtE(sim.cumIn)+' messi da te e '+fmtE(Math.max(0,sim.gain))+' di rendimento stimato.';
+  var v2=[];
+  v2.push('Di questi, '+fmtE(sim.eqEnd)+' sono in azionario, '+fmtE(sim.bufEnd)+' nel cuscinetto (circa '+fmtN(sim.bufCover,1)+' mesi di spesa) e '+fmtE(sim.fundEnd)+' nel fondo obiettivo'+(sim.fundCover!==null?' ('+fmtN(sim.fundCover*100,0)+'% del traguardo)':'')+'.');
+  v2.push('In euro di oggi, tolta l\'inflazione, valgono circa '+fmtE(sim.real)+'.');
+  $('#verdict2').textContent=v2.join(' ');
+
+  /* MC */
+  var infl=rows.map(function(r){return r.inflow;});
+  var run=mcRun(infl,S.retEq,S.vol,Z,true);
+  var bands=mcBands(run);
+  var fin=Float64Array.from(run.finals).sort();
+  var p10=pct(fin,.1),p50=pct(fin,.5),p90=pct(fin,.9);
+  var lossN=0;for(var i=0;i<MC_N;i++)if(run.finals[i]<sim.cumEq)lossN++;
+  last.mc={bands:bands,p10:p10,p50:p50,p90:p90,loss:lossN/MC_N,finals:run.finals};
+  $('#verdict3').textContent='Con mercati altalenanti (volatilità '+fmtP(S.vol,0)+'), la parte azionaria varrebbe '+fmtE(p10)+' nel caso sfavorevole e '+fmtE(p90)+' in quello favorevole; nel caso di mezzo '+fmtE(p50)+'.';
+
+  /* KPI */
+  var ret=sim.cumIn>0?sim.gain/sim.cumIn:0;
+  $('#kpis').innerHTML=
+    kpi('Patrimonio finale',fmtE(sim.totalEnd),'tutto compreso, prima delle tasse','gold')+
+    kpi('Messo da te',fmtE(sim.cumIn),'liquidità iniziale + versamenti')+
+    kpi('Rendimento stimato',fmtS(sim.gain),'pari a '+fmtP(ret,0)+' di quanto versato')+
+    kpi('Netto dopo imposte',fmtE(sim.netEnd),'vendendo tutto: −'+fmtE(sim.tax)+' di imposta')+
+    kpi('In euro di oggi',fmtE(sim.real),'valore reale stimato')+
+    kpi('Cuscinetto',fmtN(sim.bufCover,1)+' mesi','di spesa coperti a fine piano');
+  $('#dock-v').textContent=fmtE(sim.totalEnd);
+
+  /* avvisi */
+  var w=[];
+  if(sim.negMonths>0)w.push('In '+sim.negMonths+' mesi la spesa supera lo stipendio: il PAC automatico vale zero in quei mesi. Controlla stipendi e inflazione, oppure decidi tu il PAC.');
+  if(sim.cap>0&&S.nTranche>H)w.push('Le tranche sono più dei mesi del piano: ne vengono usate '+H+'.');
+  if(sim.goal>0&&sim.fundCover!==null&&sim.fundCover<0.98)w.push('Il fondo obiettivo arriva al '+fmtN(sim.fundCover*100,0)+'% del traguardo: servono più mensilità extra, un versamento una tantum o più tempo.');
+  var lastRow=rows[H-1];
+  if(sim.bufEnd<lastRow.target*0.98)w.push('A fine piano il cuscinetto è sotto l\'obiettivo ('+fmtE(sim.bufEnd)+' contro '+fmtE(lastRow.target)+').');
+  if(S.bufferStart>S.totalCash)w.push('Il cuscinetto non può superare la liquidità totale: ho usato '+fmtE(sim.buf0)+'.');
+  $('#warns').innerHTML=w.map(function(t){return '<div class="warn">'+esc(t)+'</div>';}).join('');
+
+  /* tabelle e input derivati */
+  updateYears(sim);syncExtras();scenSyncInputs();
+  renderFlows(sim);
+  renderScen(sim);
+  renderHeat(sim);
+  drawCharts();
+  if($('#mdet').open)updateTable(sim);
+}
+function kpi(l,v,s,c){return '<div class="card kpi '+(c||'')+'"><div class="l">'+esc(l)+'</div><div class="v">'+v+'</div><div class="s">'+esc(s)+'</div></div>';}
+
+function drawCharts(){
+  var sim=last.sim;if(!sim)return;
+  var rows=sim.rows,H=sim.H;
+  var areas=[
+    {label:'Azionario',color:'var(--c-eq)',values:rows.map(function(r){return r.eq;})},
+    {label:'Cuscinetto',color:'var(--c-buf)',values:rows.map(function(r){return r.buf;})},
+    {label:'Fondo obiettivo',color:'var(--c-fund)',values:rows.map(function(r){return r.fund;})}
+  ];
+  if(sim.delay>0)areas.push({label:'In attesa',color:'var(--c-wait)',values:rows.map(function(r){return r.wait;})});
+  var inLine={label:'Versato da te',color:'var(--c-in)',dash:'6 4',w:2,values:rows.map(function(r){return r.cumIn;})};
+  legend($('#leg1'),areas.map(function(a){return {label:a.label,color:a.color};}).concat([{label:'Versato da te',color:'var(--c-in)',line:true}]));
+  drawChart($('#ch1'),{n:H,areas:areas,lines:[inLine],aria:'Evoluzione del patrimonio in '+H+' mesi, da '+fmtE(rows[0].total)+' a '+fmtE(sim.totalEnd)});
+  var mc=last.mc;if(!mc)return;
+  var eqIn={label:'Azionario versato',color:'var(--c-in)',dash:'6 4',w:2,values:rows.map(function(r){return r.cumEq;})};
+  var det={label:'Previsione con rendimento fisso',color:'var(--c-buf)',w:2,dash:'2 4',values:rows.map(function(r){return r.eq;})};
+  var med={label:'Caso di mezzo (50°)',color:'var(--c-eq)',w:2.5,values:mc.bands.mid};
+  legend($('#leg2'),[{label:'Fascia 10°–90° percentile',color:'var(--c-eq)'},{label:'Caso di mezzo',color:'var(--c-eq)',line:true},{label:'Rendimento fisso',color:'var(--c-buf)',line:true},{label:'Azionario versato',color:'var(--c-in)',line:true}]);
+  drawChart($('#ch2'),{n:H,lines:[eqIn,det,med],band:{lo:mc.bands.lo,hi:mc.bands.hi,color:'var(--c-eq)'},aria:'Simulazione di mille mercati sull\'azionario: caso di mezzo '+fmtE(mc.p50)+' a fine piano'});
+  $('#mcstats').innerHTML=
+    stat('Caso sfavorevole (10°)',fmtE(mc.p10))+stat('Caso di mezzo (50°)',fmtE(mc.p50))+stat('Caso favorevole (90°)',fmtE(mc.p90))+
+    stat('Probabilità di valere meno di quanto versato',fmtN(mc.loss*100,0)+'%');
+}
+function stat(l,v){return '<div class="stat"><div class="l">'+esc(l)+'</div><div class="v">'+v+'</div></div>';}
+
+function renderFlows(sim){
+  var s=sim.sum,eqVer=sim.cumEq;
+  var r=function(l,v,c){return '<tr class="'+(c||'')+'"><td>'+l+'</td><td class="n">'+v+'</td></tr>';};
+  var h='<thead><tr><th>Flussi versati</th><th class="n">Importo</th></tr></thead><tbody>';
+  h+=r('Tranche iniziali in azionario',fmtE(s.tranche));
+  h+=r('PAC mensile',fmtE(s.pac));
+  h+=r('Mensilità extra dirottate su azionario',fmtE(s.toEq));
+  h+=r('Versamenti una tantum in azionario',fmtE(s.oneEq));
+  h+=r('Totale versato in azionario',fmtE(eqVer),'tot');
+  h+=r('Mensilità extra su fondo obiettivo',fmtE(s.toFund));
+  h+=r('Mensilità extra su ricarica cuscinetto',fmtE(s.toBuf));
+  h+=r('Una tantum su cuscinetto e fondo',fmtE(s.oneBuf+s.oneFund));
+  h+='<tr><th>Situazione a fine piano</th><th class="n">Importo</th></tr>';
+  h+=r('Portafoglio azionario',fmtE(sim.eqEnd));
+  h+=r('di cui plusvalenza latente',fmtE(sim.gainEq));
+  h+=r('Fondo obiettivo',fmtE(sim.fundEnd));
+  h+=r('Cuscinetto di emergenza',fmtE(sim.bufEnd));
+  h+=r('Patrimonio totale',fmtE(sim.totalEnd),'tot');
+  h+=r('Imposta stimata se vendi tutto l\'azionario','−'+fmtE(sim.tax));
+  h+=r('Patrimonio netto stimato',fmtE(sim.netEnd),'tot');
+  $('#flows').innerHTML=h+'</tbody>';
+}
+
+function renderScen(sim){
+  var base=sim.totalEnd,res=[],maxT=base;
+  var Zc=Z;
+  SCEN.forEach(function(sc){
+    var p=clone(S);sc.apply(p,sc.k?S.sc[sc.k]:0);
+    var s2=simulate(p);res.push({sc:sc,sim:s2,p:p});maxT=Math.max(maxT,s2.totalEnd);
+  });
+  res.forEach(function(x){
+    var sc=x.sc,s2=x.sim,d=s2.totalEnd-base,dIn=s2.cumIn-sim.cumIn,dGain=d-dIn;
+    var el=$('#card-'+sc.id);
+    var de=$('.delta',el);de.textContent=fmtS(d);de.className='delta '+(d>0.5?'pos':(d<-0.5?'neg':''));
+    $$('.line',el)[0].textContent='Patrimonio finale: '+fmtE(s2.totalEnd)+' ('+(base>0?(d>=0?'+':'−')+fmtN(Math.abs(d)/base*100,1)+'%':'—')+')';
+    $('.bar>span',el).style.width=(maxT>0?s2.totalEnd/maxT*100:0)+'%';
+    $('.bar>u',el).style.left=(maxT>0?base/maxT*100:0)+'%';
+    $('.tt',el).textContent='Versato da te: '+fmtS(dIn)+' · rendimento: '+fmtS(dGain);
+    $('.exp',el).textContent=explain(sc,x,d,dIn,dGain);
+  });
+}
+function explain(sc,x,d,dIn,dGain){
+  var H=last.sim.H;
+  if(sc.id==='s1'){
+    if(S.nTranche<=1)return 'Il tuo piano entra già tutto subito: non cambia nulla.';
+    var infl=x.sim.rows.map(function(r){return r.inflow;});
+    var a=mcRun(last.sim.rows.map(function(r){return r.inflow;}),S.retEq,S.vol,Z,false).finals;
+    var b=mcRun(infl,S.retEq,S.vol,Z,false).finals;
+    var win=0;for(var i=0;i<MC_N;i++)if(b[i]>a[i])win++;
+    return 'Con rendimento costante entrare subito rende di più ('+fmtS(d)+'). Nei 1.000 mercati simulati batte le tranche '+fmtN(win/MC_N*100,0)+' volte su 100: le tranche non aumentano il guadagno medio, riducono solo il rischio di entrare nel momento sbagliato.';
+  }
+  if(sc.id==='s2')return 'Metti '+fmtE(S.sc.extraStart)+' in più e a fine piano ne ritrovi '+fmtE(d)+' di differenza: '+fmtE(dGain)+' sono rendimento maturato in '+H+' mesi.';
+  if(sc.id==='s3')return 'Versi '+fmtE(dIn)+' in più nel totale e il patrimonio sale di '+fmtE(d)+'. I soldi versati prima rendono più di quelli versati alla fine.';
+  if(sc.id==='s4')return S.sc.delay<=0?'Imposta i mesi di attesa per vedere il costo di rimandare.':'Aspettare '+S.sc.delay+' mesi cambia il risultato di '+fmtS(d)+': nel frattempo i soldi rendono solo il tasso monetario, non quello azionario.';
+  if(sc.id==='s5')return 'Se l\'azionario rende '+fmtN(S.sc.retDelta,1)+' punti in meno ogni anno, finisci con '+fmtS(d)+'. Il PAC e il cuscinetto non cambiano, cambia solo quanto lavora la parte investita.';
+  if(sc.id==='s6')return S.sc.horizonPlus<=0?'Aggiungi mesi per vedere l\'effetto del tempo.':'Altri '+S.sc.horizonPlus+' mesi aggiungono '+fmtE(d)+': '+fmtE(dIn)+' versati in più e '+fmtE(dGain)+' di rendimento, perché l\'interesse si compone su una base più grande.';
+  return '';
+}
+
+function renderHeat(sim){
+  var stepR=Math.max(0.1,S.stepR)/100,stepP=Math.max(1,S.stepP);
+  var rs=[-2,-1,0,1,2].map(function(k){return S.retEq+k*stepR;});
+  var ps=[0,1,2,3].map(function(k){return k*stepP;});
+  var vals=[],mn=Infinity,mx=-Infinity;
+  rs.forEach(function(r,i){vals[i]=[];ps.forEach(function(pp,j){
+    var p=clone(S);p.retEq=r;p.pacBoost=(p.pacBoost||0)+pp;
+    var v=simulate(p).totalEnd;vals[i][j]=v;mn=Math.min(mn,v);mx=Math.max(mx,v);
+  });});
+  var h='<thead><tr><th>Rendimento ↓ / PAC extra →</th>'+ps.map(function(pp){return '<th>'+(pp?'+'+fmtN(pp,0)+' €':'nessuno')+'</th>';}).join('')+'</tr></thead><tbody>';
+  rs.forEach(function(r,i){
+    h+='<tr><th>'+fmtP(r,1)+'</th>';
+    ps.forEach(function(pp,j){
+      var t=mx>mn?(vals[i][j]-mn)/(mx-mn):0.5;
+      h+='<td class="'+(i===2&&j===0?'base':'')+'" style="background:rgba(201,154,46,'+(0.12+0.5*t).toFixed(2)+')">'+fmtE(vals[i][j])+'</td>';
+    });
+    h+='</tr>';
+  });
+  $('#heat').innerHTML=h+'</tbody>';
+}
+
+/* ---------- foglio mensile ---------- */
+var tCells=[],tBuiltH=-1;
+function buildTable(){
+  var H=last.sim.H;
+  var cols=['Mese','Anno','Stipendio','Spesa','Surplus','PAC','Tranche','Mens. netta','→ Cuscinetto','→ Fondo','→ Azionario','Una tantum','Versato azion.','Azionario','Cuscinetto','Fondo','Totale'];
+  var h='<table><thead><tr>'+cols.map(function(c){return '<th>'+c+'</th>';}).join('')+'</tr></thead><tbody>';
+  for(var m=1;m<=H;m++){
+    h+='<tr><td>'+m+'</td>'+'<td></td><td></td><td></td><td></td><td><input type="number" step="10" min="0" data-m="'+m+'" aria-label="PAC del mese '+m+'" placeholder="auto"></td>'+new Array(12).join('<td></td>')+'</tr>';
+  }
+  $('#mt').innerHTML=h+'</tbody></table>';
+  tCells=$$('#mt tbody tr').map(function(tr){return $$('td',tr);});
+  $$('#mt input').forEach(function(el){
+    var m=el.getAttribute('data-m');
+    el.addEventListener('input',function(){
+      if(el.value===''){delete S.monthPac[m];el.classList.remove('ov');}
+      else{var v=parseFloat(el.value);if(!isFinite(v))return;S.monthPac[m]=Math.max(0,v);el.classList.add('ov');}
+      schedule();
+    });
+  });
+  tBuiltH=H;
+}
+function updateTable(sim){
+  if(tBuiltH!==sim.H)buildTable();
+  sim.rows.forEach(function(r,i){
+    var c=tCells[i];if(!c)return;
+    var v=[r.m,r.year,r.net,r.spend,r.surplus,null,r.tranche,r.extra,r.toBuf,r.toFund,r.toEq,r.one,r.cumEq,r.eq,r.buf,r.fund,r.total];
+    for(var k=0;k<v.length;k++){
+      if(k===5){
+        var inp=$('input',c[5]);
+        inp.placeholder=fmtN(r.pac,0);
+        var ov=S.monthPac[r.m];
+        if(inp!==document.activeElement){inp.value=(ov===undefined)?'':ov;}
+        inp.classList.toggle('ov',ov!==undefined);
+      }else if(k>1)c[k].textContent=fmtN(v[k],0);
+      else c[k].textContent=v[k];
+    }
+  });
+}
+
+/* ---------- persistenza e preset ---------- */
+var saveT=0;
+function save(){
+  clearTimeout(saveT);
+  saveT=setTimeout(function(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}},250);
+}
+function load(){
+  try{
+    var raw=localStorage.getItem(KEY);if(!raw)return;
+    var o=JSON.parse(raw),d=defaults();
+    Object.keys(d).forEach(function(k){
+      if(o[k]===undefined)return;
+      if(typeof d[k]==='number'){if(isFinite(Number(o[k])))d[k]=Number(o[k]);}
+      else if(k==='years'){if(Array.isArray(o.years)&&o.years.length)d.years=o.years.map(function(y){return {net:Math.max(0,Number(y.net)||0),pac:(y.pac===null||y.pac===undefined||!isFinite(Number(y.pac)))?null:Number(y.pac)};});}
+      else if(k==='oneoffs'){if(Array.isArray(o.oneoffs))d.oneoffs=o.oneoffs.filter(function(x){return x&&isFinite(Number(x.month))&&isFinite(Number(x.amount));}).slice(0,50).map(function(x){return {month:Math.round(x.month),amount:Number(x.amount),dest:(x.dest==='buf'||x.dest==='fund')?x.dest:'eq'};});}
+      else if(k==='monthPac'){if(o.monthPac&&typeof o.monthPac==='object'){Object.keys(o.monthPac).forEach(function(m){var v=Number(o.monthPac[m]);if(isFinite(v)&&Number(m)>=1&&Number(m)<=360)d.monthPac[m]=v;});}}
+      else if(k==='sc'){if(o.sc&&typeof o.sc==='object'){Object.keys(d.sc).forEach(function(q){if(isFinite(Number(o.sc[q])))d.sc[q]=Number(o.sc[q]);});}}
+    });
+    d.horizon=Math.max(6,Math.min(360,Math.round(d.horizon)));
+    S=d;
+  }catch(e){}
+}
+function applyState(n){
+  S=n;ensureYears();syncFields();syncExtras();buildYears(true);buildOnes();
+  tBuiltH=-1;scenSyncInputs();render();save();
+}
+function presetBase(){applyState(defaults());}
+function presetLong(){
+  var d=defaults();d.horizon=240;d.totalCash=5000;d.bufferStart=4500;d.nTranche=1;d.spend0=1300;d.goal=0;d.goalStartYear=2;
+  d.spendInfl=0.02;d.years=yearsFrom(1550,0.02,20);d.pacBoost=0;applyState(d);
+}
+function presetBig(){
+  var d=defaults();d.horizon=120;d.totalCash=40000;d.bufferStart=10000;d.nTranche=6;d.spend0=1500;d.spendInfl=0.025;d.bufferMonths=6;d.goal=0;
+  d.years=yearsFrom(1750,0.025,10);d.salaryGrowth=0.025;applyState(d);
+}
+function presetPac(){
+  var d=defaults();d.horizon=120;d.totalCash=3000;d.bufferStart=3000;d.nTranche=1;d.spend0=1100;d.spendInfl=0.02;d.goal=0;
+  d.years=yearsFrom(1900,0.02,10);d.pacBoost=0;applyState(d);
+}
+
+/* ---------- avvio ---------- */
+function init(){
+  buildGroups();load();ensureYears();
+  buildScen();buildYears(true);buildOnes();syncFields();syncExtras();
+  $('#b-reset').addEventListener('click',presetBase);
+  $('#b-p2').addEventListener('click',presetLong);
+  $('#b-p3').addEventListener('click',presetBig);
+  $('#b-p4').addEventListener('click',presetPac);
+  $('#b-addone').addEventListener('click',function(){S.oneoffs.push({month:Math.min(S.horizon,Math.max(1,Math.round(S.horizon/2))),amount:2000,dest:'eq'});buildOnes();schedule();});
+  $('#b-growth').addEventListener('click',function(){
+    var g=S.salaryGrowth,f=S.years[0].net;
+    for(var i=1;i<S.years.length;i++)S.years[i].net=Math.round(f*Math.pow(1+g,i));
+    buildYears(true);schedule();
+  });
+  $('#growth').addEventListener('input',function(e){var v=parseFloat(e.target.value);if(isFinite(v)){S.salaryGrowth=Math.max(-0.1,Math.min(0.3,v/100));schedule();}});
+  $('#pacBoost').addEventListener('input',function(e){var v=parseFloat(e.target.value);if(isFinite(v)){S.pacBoost=Math.max(0,v);schedule();}});
+  $('#stepR').addEventListener('input',function(e){var v=parseFloat(e.target.value);if(isFinite(v)){S.stepR=Math.max(0.1,Math.min(5,v));schedule();}});
+  $('#stepP').addEventListener('input',function(e){var v=parseFloat(e.target.value);if(isFinite(v)){S.stepP=Math.max(1,Math.min(2000,v));schedule();}});
+  $('#b-clearpac').addEventListener('click',function(){S.monthPac={};$$('#mt input').forEach(function(el){el.value='';el.classList.remove('ov');});schedule();});
+  $('#mdet').addEventListener('toggle',function(){if(this.open&&last.sim)updateTable(last.sim);});
+  render();
+  if(window.ResizeObserver){
+    var t=0,ro=new ResizeObserver(function(){clearTimeout(t);t=setTimeout(drawCharts,80);});
+    ro.observe($('#ch1'));ro.observe($('#ch2'));
+  }else window.addEventListener('resize',drawCharts);
+  new MutationObserver(function(){drawCharts();renderHeat(last.sim);}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  if(window.matchMedia){var mq=window.matchMedia('(prefers-color-scheme: dark)');var cb=function(){drawCharts();};if(mq.addEventListener)mq.addEventListener('change',cb);else if(mq.addListener)mq.addListener(cb);}
+}
+init();
+</script>
+</body>
+</html>
